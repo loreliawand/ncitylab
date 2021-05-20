@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
   res.send('Future is coming');
