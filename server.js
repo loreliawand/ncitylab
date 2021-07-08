@@ -7,7 +7,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-  res.end('Future is coming');
+  res.send('Future is coming');
 });
 
 app.listen(port, () => {
