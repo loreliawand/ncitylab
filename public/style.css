@@ -1,0 +1,17 @@
+html {
+  background-color: #000000;
+}
+
+h1 {
+  color: #d00030;
+  position: absolute; /*начало растягивания по всему родительскому элементу*/
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0; /*конец растягивания по всему родительскому элементу*/
+  /*text-align: center; /*выравниваю текст по ширине*/
+  /*margin: auto; /*выравниваю блок по ширине*/
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
