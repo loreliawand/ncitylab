@@ -2,7 +2,7 @@
   "name": "ncitylab",
   "version": "1.0.0",
   "description": "Great site from great hooman",
-  "main": "main.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "devstart": "nodemon ./bin/www",
