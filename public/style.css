@@ -14,4 +14,54 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
+  text-shadow: #f00030 0 0 10px; /*свечение для надписи*/
+  font-size: 100px;
+  font-family: "Neon";
+}
+
+.def_letter_1 {
+  animation: neon_1 linear infinite 3s;
+}
+
+@keyframes neon_1 {
+    80% {
+        color: inherit;
+        text-shadow: inherit;
+    }
+
+    82% {
+        color: inherit;
+        tex-shadow: none;
+    }
+
+    84% {
+      color: #300;
+      text-shadow: none;
+    }
+}
+
+.def_letter_2 {
+  animation: neon_1 linear infinite 5s;
+}
+
+@keyframes neon_2 {
+    50% {
+        color: inherit;
+        text-shadow: inherit;
+    }
+
+    52% {
+        color: inherit;
+        tex-shadow: none;
+    }
+
+    54% {
+      color: #300;
+      text-shadow: none;
+    }
+}
+
+@font-face {
+  font-family: "Neon";
+  src: url("fonts/neon_club_music.otf");
 }
