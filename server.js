@@ -5,8 +5,18 @@ const Handlebars = require('handlebars');
 const path = require('path');
 const router = require('./routes');
 const MongoClient = require("mongodb").MongoClient;
+const mongoClient = new MongoClient("mongodb://localhost:27017/", { useUnifiedTopology: true });
 
 const port = process.env.PORT || 3000;
+
+mongoClient.connect(function(err, client){
+
+    if(err){
+        return console.log(err);
+    }
+    // взаимодействие с базой данных
+    client.close();
+});
 
 app.set("wiev engine", "hbs");
 
