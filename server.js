@@ -11,11 +11,8 @@ const port = process.env.PORT || 3000;
 
 mongoClient.connect(function(err, client){
 
-    if(err){
-        return console.log(err);
-    }
-    // взаимодействие с базой данных
-    client.close();
+    const db = client.db("ncitylab");
+    const collection = db.collection("users");
 });
 
 app.set("wiev engine", "hbs");
