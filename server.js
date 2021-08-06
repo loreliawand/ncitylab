@@ -4,16 +4,9 @@ const bodyParser = require('body-parser');
 const Handlebars = require('handlebars');
 const path = require('path');
 const router = require('./routes');
-const MongoClient = require("mongodb").MongoClient;
-const mongoClient = new MongoClient("mongodb://localhost:27017/", { useUnifiedTopology: true });
+const db = require('./db');
 
 const port = process.env.PORT || 3000;
-
-mongoClient.connect(function(err, client){
-
-    const db = client.db("ncitylab");
-    const collection = db.collection("users");
-});
 
 app.set("wiev engine", "hbs");
 
@@ -21,6 +14,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.use('/', router);
+app.use('/signup', router);
+app.use('/signin', router);
+app.use('/secret', router);
+
 
 app.use(function(req, res, next) {
   const err = new Error("Sorry, I didn't find anything");
