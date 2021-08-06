@@ -1,3 +1,13 @@
+const MongoClient = require("mongodb").MongoClient;
+const mongoClient = new MongoClient("mongodb://localhost:27017/", { useUnifiedTopology: true });
+
+mongoClient.connect(function(err, client){
+
+    const db = client.db("ncitylab");
+    const collection = db.collection("users");
+});
+
+
 module.exports.getUser = function(email) {
   return new Promise((resolve, reject)=>{
     MongoClient
@@ -6,7 +16,7 @@ module.exports.getUser = function(email) {
           reject(err);
         }
         client
-          .db(baza)
+          .db("ncitylab")
           .collection('users')
           .find({ "email": email})
           .toArray(function(err, results){
@@ -28,7 +38,7 @@ module.exports.getToken = function(token) {
           reject(err);
         }
         client
-          .db(baza)
+          .db("ncitylab")
           .collection('token')
           .find({ "token": token})
           .toArray(function(err, results){
@@ -50,7 +60,7 @@ module.exports.add = function(tabl, data) {
           reject(err);
         }
         client
-          .db(baza)
+          .db("ncitylab")
           .collection(tabl)
           .insertOne(data, function(err, results){
             if (err) {
@@ -72,7 +82,7 @@ module.exports.delete = function(email) {
           reject(err);
         }
         client
-          .db(baza)
+          .db("ncitylab")
           .collection('token')
           .deleteMany({ "login": email},
             function(err, results){
