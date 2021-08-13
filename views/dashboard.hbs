@@ -4,12 +4,25 @@
     <meta charset="utf-8">
     <title>Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <!-- <script src="handlebars-v4.7.7.js"></script> --> <!-- я подключу это потом -->
   </head>
   <body>
     <h1>Fu<span class="def_letter_1">t</span>ure is c<span class="def_letter_2">om</span>ing</h1>
     <form>
-      <button>Login</button><button>Register</button>
+      <button id="modal">Login</button>
+      <div id="modal_window" class="modal_style">
+        <div class="modal_content">
+          <span class="close_modal_window">Close</span>
+          <p>Войти</p>
+        </div>
+      </div>
+      <button id="modal">Register</button>
+      <div id="modal_window" class="modal_style">
+        <div class="modal_content">
+          <span class="close_modal_window">Close</span>
+          <p>Зарегистрироваться</p>
+        </div>
+      </div>
     </form>
+    <script src="modal.js"></script>
   </body>
 </html>
