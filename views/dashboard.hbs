@@ -8,20 +8,17 @@
   <body>
     <h1>Fu<span class="def_letter_1">t</span>ure is c<span class="def_letter_2">om</span>ing</h1>
     <form>
-      <button id="modal">Login</button>
-      <div id="modal_window" class="modal_style">
-        <div class="modal_content">
-          <span class="close_modal_window">Close</span>
-          <p>Войти</p>
-        </div>
+      <button href="#" class="js-open-modal" data-modal="1">Login</button>
+      <button href="#" class="js-open-modal" data-modal="2">Register</button>
+      <div class="modal" data-modal="1">
+        <p class="js-modal-close">Close</p>
+        <p class="modal_title">Sign in</p>
       </div>
-      <button id="modal">Register</button>
-      <div id="modal_window" class="modal_style">
-        <div class="modal_content">
-          <span class="close_modal_window">Close</span>
-          <p>Зарегистрироваться</p>
-        </div>
+      <div class="modal" data-modal="2">
+        <p class="js-modal-close">Close</p>
+        <p class="modal_title">Sign up</p>
       </div>
+      <div class="overlay" id="overlay-modal"></div>
     </form>
     <script src="modal.js"></script>
   </body>
