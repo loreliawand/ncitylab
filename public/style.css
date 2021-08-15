@@ -29,7 +29,7 @@ form {
   margin-top: 100px;
 }
 
-button {
+.button_shine {
   width: 180px;
   height: 80px;
   background-color: #000;
@@ -41,7 +41,7 @@ button {
   margin: 0 50px;
 }
 
-button:hover {
+.button_shine:hover {
   font-weight: bold;
   box-shadow: 0 0 100px #f00030; /*свечение для надписи*/
 }
@@ -118,14 +118,57 @@ button:hover {
   z-index: 30;
   box-shadow: 0 3px 10px -0.5px rgba(0, 0, 0, 0.2);
   text-align: center;
-  padding: 30px;
-  border-radius: 3px;
-  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.9);
+  border-color: #d00030;
+  border-width: 5px;
+  border-style: solid;
   transition: 0.3s all;
+  text-align: center;
 }
 
 .modal.active,
 .overlay.active{
    opacity: 1;
    visibility: visible;
+}
+
+.modal_button_close {
+  width: 100px;
+  height: 40px;
+  background-color: #000;
+  border-color: #d00030;
+  color: #d00030;
+  font-family: "Neon";
+  font-size: 15px;
+  margin-bottom: 20px;
+  position: absolute;
+  right: 10px;
+}
+
+.modal_button_close:hover {
+  font-weight: bold;
+}
+
+.modal_title {
+  font-family: "Neon";
+  color: #d00030;
+  margin-top: 50px;
+  margin-bottom: 30px;
+  font-size: 35px;
+}
+
+
+label {
+  font-family: "Neon";
+  color: #d00030;
+}
+
+.auth_n_auth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
 }
