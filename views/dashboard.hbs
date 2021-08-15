@@ -8,18 +8,30 @@
   <body>
     <h1>Fu<span class="def_letter_1">t</span>ure is c<span class="def_letter_2">om</span>ing</h1>
     <form>
-      <button href="#" class="js-open-modal" data-modal="1">Login</button>
-      <button href="#" class="js-open-modal" data-modal="2">Register</button>
-      <div class="modal" data-modal="1">
-        <p class="js-modal-close">Close</p>
-        <p class="modal_title">Sign in</p>
-      </div>
-      <div class="modal" data-modal="2">
-        <p class="js-modal-close">Close</p>
-        <p class="modal_title">Sign up</p>
-      </div>
-      <div class="overlay" id="overlay-modal"></div>
+      <button href="#" class="js-open-modal button_shine" data-modal="1">Login</button>
+      <button href="#" class="js-open-modal button_shine" data-modal="2">Register</button>
     </form>
+    <div class="modal" data-modal="1">
+      <button class="js-modal-close modal_button_close">Close</button>
+      <p class="modal_title">Sign in</p>
+      <form class="auth_n_auth">
+        <label for="login_signin">Login</label><br>
+        <input type="text" id="login_signin" name="login"><br>
+        <label for="password_signin">Password</label><br>
+        <input type="password" id="password_signin" name="password"><br>
+      </form>
+    </div>
+    <div class="modal" data-modal="2">
+      <button class="js-modal-close modal_button_close">Close</button>
+      <p class="modal_title">Sign up</p>
+      <form class="auth_n_auth">
+        <label for="login_signup">Login</label><br>
+        <input type="text" id="login_signup" name="login"><br>
+        <label for="password_signup">Password</label><br>
+        <input type="password" id="password_signup" name="password"><br>
+      </form>
+    </div>
+    <div class="overlay" id="overlay-modal"></div>
     <script src="modal.js"></script>
   </body>
 </html>
