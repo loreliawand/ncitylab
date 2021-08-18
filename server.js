@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const jsonParser = express.json();
 const bodyParser = require('body-parser');
 const Handlebars = require('handlebars');
 const path = require('path');
@@ -16,7 +17,6 @@ app.use(express.static(__dirname + '/public'));
 app.use('/', router);
 app.use('/signup', router);
 app.use('/signin', router);
-app.use('/secret', router);
 
 
 app.use(function(req, res, next) {
