@@ -172,3 +172,14 @@ label {
   flex-direction: column;
   margin-top: 10px;
 }
+
+.modal_button_submit {
+  width: 100px;
+  height: 40px;
+  background-color: #000;
+  border-color: #d00030;
+  color: #d00030;
+  font-family: "Neon";
+  font-size: 15px;
+  margin: 20px 0;
+}
