@@ -12,8 +12,8 @@
   "author": "Lorelia Wand",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "handlebars": "^4.7.7",
     "hbs": "^4.1.2",
