@@ -1,122 +1,51 @@
 const express = require('express');
 const router = express.Router();
-const db = require('./db');
-const bcrypt = require('bcryptjs');
-const uuidv4 = require('uuid');
+const bcrypt = require("bcryptjs");
+const jwt = require('jsonwebtoken');
+const secret = "it's a wonderful idea!";
+const User = require("./user");
 
-let auth = function(req, res, next) {
-  db
-    .getToken(req.headers.authorization)
-    .then((results)=>{
-      if (results.length == 0) {
-        const err = new Error('Not authorized');
-        err.status = 401;
-        next(err);
-      } else {
-        next()
-      }
-    })
-    .catch((err)=>{
-      next(err);
-    })
-}
-
-const isValidPassword = function(user, password) {
-  return bcrypt.compareSync(password, user.password);
-}
-
-router.get('/', (req, res)=>{
+router.get('/', (req, res, next)=>{
     res.render('dashboard.hbs');
 });
 
-router.get('/secret', auth, (req, res)=>{
-  res.json({
-    message: 'Secret page'
-  })
+router.post("/signin", (req, res, next) => {
+    User.findOne({ login: req.body.login}, function (err, user) {
+      if (err) return res.status(500).send('Error on the server.');
+      if (!user) return res.status(404).send('No user found.');
+
+      var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+      if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
+
+      var token = jwt.sign({ id: user._id }, secret, {
+        expiresIn: 86400
+      });
+      res.redirect('/');
+    });
 });
 
-router.get('/signup', (req, res) => {
-  res.json({
-    message: 'Registration page'
-  })
-})
+router.post("/signup", (req, res, next) => {
+  var hash = bcrypt.hashSync(req.body.password, 10);
 
-router.post('/signup', (req, res, next)=>{
-  if(req.body.password === req.body.repeatPassword){
-    db
-      .getUser(req.body.email)
-      .then((results)=>{
-        if (results.length == 0){
-          data = {
-            email: req.body.email,
-            password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10), null)
-          };
-          db
-            .add('users', data)
-            .then((results)=>{
-              res.json({
-                message: 'Added a new user: ' + results[0]
-              })
-            })
-            .catch((err)=>{
-              next(err);
-            })
-        } else {
-          const err = new Error('This user already exists!');
-          err.status = 400;
-            next(err);
-        }
-      })
-      .catch((err)=>{
-        next(err);
-      })
-  } else {
-    const err = new Error('Password and password confirmation do not match!');
-    err.status = 400;
-      next(err);
+  User.create({
+    login: req.body.login,
+    password : hash
+  },
+  function (err, user) {
+    if (err) return res.status(500).send("There was a problem registering the user.")
+    // create a token
+    var token = jwt.sign({ id: user._id }, secret, {
+      expiresIn: 86400 // expires in 24 hours
+    });
+    res.redirect('/');
+  });
+});
+
+router.post('./logout', function(req, res, next){
+  if (req.session.user) {
+    delete req.session.user;
+    res.redirect('/')
   }
-})
-
-router.get('/signin', (req, res) => {
-  res.json({
-    message: 'Login page'
-  })
-})
-
-router.post('/signin', (req, res, next)=>{
-  db
-    .getUser(req.body.email)
-    .then((results)=>{
-      if (isValidPassword(results[0], req.body.password)) {
-        data ={};
-        data.login=req.body.email;
-        data.token=uuidv4();
-        db
-          .delete(req.body.email)
-          .then((results)=>{
-            db
-              .add('token', data)
-              .then((results)=>{
-                res.json({
-                  token: results.token
-                })
-              })
-              .catch((err)=>{
-                next(err)
-              })
-          })
-          .catch((err)=>{
-            next(err)
-          })
-      } else {
-        const err = new Error('Invalid login or password!');
-        err.status = 400;
-        next(err);
-      }
-    })
-    .catch((err)=>{
-      next(err);
-    })
 })
 
 module.exports = router;
