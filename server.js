@@ -43,10 +43,10 @@ app.use('/signin', router);
 
 app.use(session({
   secret: secret,
+  cookie: {maxAge: 3600000},
   resave: false,
   saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/ncitylab'
-  })
+  store: MongoStore.create({ mongoUrl: 'mongodb://localhost:27017/ncitylab' })
 }));
 
 app.use(function(req, res, next) {
