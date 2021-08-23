@@ -6,7 +6,7 @@ const secret = "it's a wonderful idea!";
 const User = require("./user");
 
 router.get('/', (req, res, next)=>{
-    res.render('dashboard.hbs');
+    res.render('dashboard.hbs', {user: req.user});
 });
 
 router.post("/signin", (req, res, next) => {
@@ -16,7 +16,6 @@ router.post("/signin", (req, res, next) => {
 
       var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
       if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
-
       var token = jwt.sign({ id: user._id }, secret, {
         expiresIn: 86400
       });
@@ -41,11 +40,9 @@ router.post("/signup", (req, res, next) => {
   });
 });
 
-router.post('./logout', function(req, res, next){
-  if (req.session.user) {
-    delete req.session.user;
-    res.redirect('/')
-  }
-})
+router.get('/logout', function(req, res) {
+  res.send({ auth: false, token: null });
+  res.redirect('/');
+});
 
 module.exports = router;
