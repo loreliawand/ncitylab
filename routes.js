@@ -12,12 +12,12 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 
 router.get('/', (req, res, next)=>{
     res.render('dashboard.hbs');
+     console.log(req.headers);
 });
 
 router.post("/signin", async (req, res) => {
   try {
     const { login, password } = req.body;
-
 
     if (!(login && password)) {
       res.status(400).send("All input is required");
@@ -35,14 +35,16 @@ router.post("/signin", async (req, res) => {
 
       user.token = token;
       res.status(200).json(user);
+      //res.redirect('/');
     }
-    res.status(400).send("Invalid Credentials");
   } catch (err) {
     console.log(err);
   }
+  console.log(req.headers);
 });
 
 router.post("/signup", async (req, res) => {
+  var authorization = new Bearer(token.split(' ')[1]);
   try {
     const { login, password } = req.body;
 
@@ -71,39 +73,22 @@ router.post("/signup", async (req, res) => {
     );
     // save user token
     user.token = token;
-
-    // return new user
-    res.status(201).json(user);
+    console.log(user);
+    res.redirect('/');
   } catch (err) {
     console.log(err);
   }
 });
 
-router.post("/protected", auth, (req, res) => {
+router.get("/protected", auth, (req, res) => {
   res.status(200).send("Welcome 🙌 ");
 });
 
 router.post('./logout', function(req, res, next){
-  if (req.session.user) {
-    delete req.session.user;
-    res.redirect('/')
-  }
-})
-
-const verifyToken = (req, res, next) => {
-  const token =
-    req.body.token || req.query.token || req.headers["x-access-token"];
-
-  if (!token) {
-    return res.status(403).send("A token is required for authentication");
-  }
-  try {
-    const decoded = jwt.verify(token, secret);
-    req.user = decoded;
-  } catch (err) {
-    return res.status(401).send("Invalid Token");
-  }
-  return next();
-};
+  req.user.deleteToken(req.token,(err,user)=>{
+            if(err) return res.status(400).send(err);
+            res.sendStatus(200);
+        });
+});
 
 module.exports = router;
