@@ -6,20 +6,24 @@ const secret = "it's a wonderful idea!";
 const User = require("./user");
 const auth = require("./auth");
 const fetch = require('node-fetch');
-if (typeof localStorage === "undefined" || localStorage === null) {
-  var LocalStorage = require('node-localstorage').LocalStorage;
-  localStorage = new LocalStorage('./scratch');
-}
+//if (typeof localStorage === "undefined" || localStorage === null) {
+  //var LocalStorage = require('node-localstorage').LocalStorage;
+  //localStorage = new LocalStorage('./scratch');
+//}
+
+
+fetch('http://localhost:3000/', {
+    headers: {
+      Authorization: 'Bearer'
+  }
+});
 
 router.get('/', (req, res, next)=>{
     res.render('dashboard.hbs');
-    console.log(req.headers);
+    //console.log(req.headers);
+    console.log(res);
+    console.log(req.headers.authorization);
 });
-
-//fetch('http://localhost:3000/', {
-  //headers: {
-    //Authentication: 'Bearer'}
-//});
 
 router.post("/signin", async (req, res) => {
   try {
@@ -46,7 +50,6 @@ router.post("/signin", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-  console.log(req.headers);
 });
 
 router.post("/signup", async (req, res) => {
