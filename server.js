@@ -18,7 +18,7 @@ const MongoStore = require('connect-mongo');
   //localStorage = new LocalStorage('./scratch');
 //}
 
-localStorage.setItem('myFirstKey', 'myFirstValue');
+//localStorage.setItem('myFirstKey', 'myFirstValue');
 
 const port = process.env.PORT || 3000;
 
