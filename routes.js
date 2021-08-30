@@ -12,7 +12,7 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 
 router.get('/', (req, res, next)=>{
     res.render('dashboard.hbs');
-     console.log(req.headers);
+    console.log(req.headers);
 });
 
 router.post("/signin", async (req, res) => {
@@ -35,7 +35,6 @@ router.post("/signin", async (req, res) => {
 
       user.token = token;
       res.status(200).json(user);
-      myHeaders.set('Authorization', 'Bearer')
       //res.redirect('/');
     }
   } catch (err) {
