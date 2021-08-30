@@ -14,6 +14,7 @@ const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const fetch = require('node-fetch');
+const cors = require('cors');
 //if (typeof localStorage === "undefined" || localStorage === null) {
   //var LocalStorage = require('node-localstorage').LocalStorage;
   //localStorage = new LocalStorage('./scratch');
@@ -44,6 +45,12 @@ mongoose
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
+app.use(function(req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+    next();
+});
 app.use('/', router);
 app.use('/signup', router);
 app.use('/signin', router);
@@ -54,6 +61,7 @@ app.use('/protected', router);
     //res.append('Access-Control-Allow-Headers', 'Authorization');
     //next();
 //});
+
 
 app.use(session({
   secret: secret,
