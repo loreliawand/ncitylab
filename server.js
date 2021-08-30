@@ -13,10 +13,10 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-if (typeof localStorage === "undefined" || localStorage === null) {
-  var LocalStorage = require('node-localstorage').LocalStorage;
-  localStorage = new LocalStorage('./scratch');
-}
+//if (typeof localStorage === "undefined" || localStorage === null) {
+  //var LocalStorage = require('node-localstorage').LocalStorage;
+  //localStorage = new LocalStorage('./scratch');
+//}
 
 localStorage.setItem('myFirstKey', 'myFirstValue');
 
@@ -48,11 +48,11 @@ app.use('/signup', router);
 app.use('/signin', router);
 app.use('/protected', router);
 
-app.use((req, res, next) => {
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
-    res.append('Access-Control-Allow-Headers', 'Authorization');
-    next();
-});
+//app.use((req, res, next) => {
+    //res.append('Access-Control-Allow-Headers', 'Content-Type');
+    //res.append('Access-Control-Allow-Headers', 'Authorization');
+    //next();
+//});
 
 app.use(session({
   secret: secret,
