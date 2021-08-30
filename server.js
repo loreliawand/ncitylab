@@ -13,6 +13,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+const fetch = require('node-fetch');
 //if (typeof localStorage === "undefined" || localStorage === null) {
   //var LocalStorage = require('node-localstorage').LocalStorage;
   //localStorage = new LocalStorage('./scratch');

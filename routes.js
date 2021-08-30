@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const secret = "it's a wonderful idea!";
 const User = require("./user");
 const auth = require("./auth");
+const fetch = require('node-fetch');
 if (typeof localStorage === "undefined" || localStorage === null) {
   var LocalStorage = require('node-localstorage').LocalStorage;
   localStorage = new LocalStorage('./scratch');
@@ -14,6 +15,11 @@ router.get('/', (req, res, next)=>{
     res.render('dashboard.hbs');
     console.log(req.headers);
 });
+
+//fetch('http://localhost:3000/', {
+  //headers: {
+    //Authentication: 'Bearer'}
+//});
 
 router.post("/signin", async (req, res) => {
   try {
