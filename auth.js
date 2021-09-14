@@ -22,7 +22,6 @@ const authenticateMiddleware = (req, res, next) => {
     res.sendStatus(401);
     //console.log(req);
     //console.log(res);
-    //console.log(req.headers.authorization);
   }
 };
 

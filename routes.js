@@ -11,12 +11,11 @@ const fetch = require('node-fetch');
   //localStorage = new LocalStorage('./scratch');
 //}
 
-
 router.get('/', (req, res, next)=>{
     res.render('dashboard.hbs');
     //console.log(req);
     //console.log(res);
-    console.log(res.headers);
+    //console.log(res.headers);
     //console.log(req.headers.authorization);
 });
 
@@ -39,26 +38,23 @@ router.post("/signin", async (req, res) => {
       );
 
       user.token = token;
-      res.status(200).json(user);
       fetch("http://localhost:3000/signin", {
          method: 'POST',
          mode:"cors",
          credentials: 'include',
-         headers: ({
+         headers: {
            'Authorization': 'Bearer ' + token
-         })
-       });
-      console.log(req.headers);
-      //res.redirect('/');
+         }
+        })
+      res.redirect('/');
     }
-
-    else {
-      res.status(401).send("Incorrect login or password");
-    }
+    //else {
+      //res.status(401).send("Incorrect login or password");
+    //}
   } catch (err) {
     console.log(err);
   }
-  //console.log(res);
+  console.log(req);
 });
 
 
