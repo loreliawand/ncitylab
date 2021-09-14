@@ -6,6 +6,7 @@ const secret = "it's a wonderful idea!";
 const User = require("./user");
 const auth = require("./auth");
 const fetch = require('node-fetch');
+var debug = require('debug')('server:request');
 //if (typeof localStorage === "undefined" || localStorage === null) {
   //var LocalStorage = require('node-localstorage').LocalStorage;
   //localStorage = new LocalStorage('./scratch');
@@ -54,7 +55,7 @@ router.post("/signin", async (req, res) => {
   } catch (err) {
     console.log(err);
   }
-  console.log(req);
+  debug("Got request", req.method, req.url);
 });
 
 

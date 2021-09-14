@@ -15,6 +15,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const fetch = require('node-fetch');
 const cors = require('cors');
+const debug = require('debug')('server');
 //if (typeof localStorage === "undefined" || localStorage === null) {
   //var LocalStorage = require('node-localstorage').LocalStorage;
   //localStorage = new LocalStorage('./scratch');
@@ -90,3 +91,5 @@ app.use(function(err, req, res, next) {
 app.listen(port, () => {
   console.log('Express web app available at localhost: 3000')
 });
+
+debug("Server is running");
