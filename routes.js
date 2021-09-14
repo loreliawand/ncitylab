@@ -12,17 +12,12 @@ const fetch = require('node-fetch');
 //}
 
 
-fetch('http://localhost:3000/', {
-    headers: {
-      Authorization: 'Bearer'
-  }
-});
-
 router.get('/', (req, res, next)=>{
     res.render('dashboard.hbs');
-    //console.log(req.headers);
-    console.log(res);
-    console.log(req.headers.authorization);
+    //console.log(req);
+    //console.log(res);
+    console.log(res.headers);
+    //console.log(req.headers.authorization);
 });
 
 router.post("/signin", async (req, res) => {
@@ -45,12 +40,27 @@ router.post("/signin", async (req, res) => {
 
       user.token = token;
       res.status(200).json(user);
+      fetch("http://localhost:3000/signin", {
+         method: 'POST',
+         mode:"cors",
+         credentials: 'include',
+         headers: ({
+           'Authorization': 'Bearer ' + token
+         })
+       });
+      console.log(req.headers);
       //res.redirect('/');
+    }
+
+    else {
+      res.status(401).send("Incorrect login or password");
     }
   } catch (err) {
     console.log(err);
   }
+  //console.log(res);
 });
+
 
 router.post("/signup", async (req, res) => {
   var authorization = new Bearer(token.split(' ')[1]);
@@ -90,6 +100,7 @@ router.post("/signup", async (req, res) => {
 });
 
 router.get("/protected", auth, (req, res) => {
+  console.log(req.headers.authorization);
   res.status(200).send("Welcome 🙌 ");
 });
 

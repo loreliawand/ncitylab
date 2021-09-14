@@ -7,17 +7,22 @@ const jwt = require('jsonwebtoken');
 const bodyParser = require('body-parser');
 
 const authenticateMiddleware = (req, res, next) => {
-  if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-    token = req.headers.authorization.split(' ')[1];
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    token = authHeader(' ')[1];
     jwt.verify(token, secret, (err, user) => {
       if (err) {
           return res.sendStatus(403);
       }
+      console.log(authHeader);
       req.user = user;
       next();
-  });
+    });
   } else {
     res.sendStatus(401);
+    //console.log(req);
+    //console.log(res);
+    //console.log(req.headers.authorization);
   }
 };
 
