@@ -46,6 +46,18 @@ form {
   box-shadow: 0 0 100px #f00030; /*свечение для надписи*/
 }
 
+.about_button_shine {
+  background-color: #000;
+  border-color: #d00030;
+  color: #d00030;
+  box-shadow: 0 0 10px  #f00030; /*свечение для надписи*/
+}
+
+.about_button_shine:hover {
+  font-weight: bold;
+  box-shadow: 0 0 100px #f00030; /*свечение для надписи*/
+}
+
 .def_letter_1 {
   animation: neon_1 linear infinite 3s;
 }
@@ -182,4 +194,17 @@ label {
   font-family: "Neon";
   font-size: 15px;
   margin: 20px 0;
+}
+
+a {
+  font-family: "Neon";
+  font-size: 50px;
+  text-decoration: none;
+  border-width: medium;
+  border-color: inherit;
+  border-style: ridge;
+  margin-top: 50px;
+  text-shadow: #f00030 0 0 10px;
+  color: #d00030;
+  padding: 10px;
 }
