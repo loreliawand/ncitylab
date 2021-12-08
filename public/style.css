@@ -1,9 +1,15 @@
+@font-face {
+  font-family: "Neon";
+  src: url("fonts/neon_club_music.otf");
+}
+
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  height: 100%;
   background-color: #000000;
   display: flex;
   flex-direction: column;
@@ -20,191 +26,27 @@ h1 {
   text-shadow: #f00030 0 0 10px; /*свечение для надписи*/
   font-size: 100px;
   font-family: "Neon";
-}
+  text-align: center;
 
-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 100px;
 }
 
 .button_shine {
-  width: 180px;
-  height: 80px;
+  font-family: "Neon";
+  font-size: 50px;
+  text-decoration: none;
+  border-width: medium;
+  border-style: ridge;
+  border-color: #d00030;
+  margin-top: 50px;
+  padding: 10px;
   background-color: #000;
   border-color: #d00030;
   color: #d00030;
-  font-family: "Neon";
-  font-size: 20px;
-  box-shadow: 0 0 10px  #f00030; /*свечение для надписи*/
-  margin: 0 50px;
+  box-shadow: 0 0 10px  #f00030;
+  text-shadow: #f00030 0 0 10px; /*свечение для надписи*/
 }
 
 .button_shine:hover {
   font-weight: bold;
   box-shadow: 0 0 100px #f00030; /*свечение для надписи*/
-}
-
-.about_button_shine {
-  background-color: #000;
-  border-color: #d00030;
-  color: #d00030;
-  box-shadow: 0 0 10px  #f00030; /*свечение для надписи*/
-}
-
-.about_button_shine:hover {
-  font-weight: bold;
-  box-shadow: 0 0 100px #f00030; /*свечение для надписи*/
-}
-
-.def_letter_1 {
-  animation: neon_1 linear infinite 3s;
-}
-
-@keyframes neon_1 {
-    80% {
-        color: inherit;
-        text-shadow: inherit;
-    }
-
-    82% {
-        color: inherit;
-        tex-shadow: none;
-    }
-
-    84% {
-      color: #300;
-      text-shadow: none;
-    }
-}
-
-.def_letter_2 {
-  animation: neon_1 linear infinite 5s;
-}
-
-@keyframes neon_2 {
-    50% {
-        color: inherit;
-        text-shadow: inherit;
-    }
-
-    52% {
-        color: inherit;
-        tex-shadow: none;
-    }
-
-    54% {
-      color: #300;
-      text-shadow: none;
-    }
-}
-
-@font-face {
-  font-family: "Neon";
-  src: url("fonts/neon_club_music.otf");
-}
-
-.overlay {
-  opacity: 0;
-  visibility: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 20;
-  transition: 0.3s all;
-}
-
-.modal {
-  opacity: 0;
-  visibility: hidden;
-  width: 100%;
-  max-width: 500px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 30;
-  box-shadow: 0 3px 10px -0.5px rgba(0, 0, 0, 0.2);
-  text-align: center;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.9);
-  border-color: #d00030;
-  border-width: 5px;
-  border-style: solid;
-  transition: 0.3s all;
-  text-align: center;
-}
-
-.modal.active,
-.overlay.active{
-   opacity: 1;
-   visibility: visible;
-}
-
-.modal_button_close {
-  width: 100px;
-  height: 40px;
-  background-color: #000;
-  border-color: #d00030;
-  color: #d00030;
-  font-family: "Neon";
-  font-size: 15px;
-  margin-bottom: 20px;
-  position: absolute;
-  right: 10px;
-}
-
-.modal_button_close:hover {
-  font-weight: bold;
-}
-
-.modal_title {
-  font-family: "Neon";
-  color: #d00030;
-  margin-top: 50px;
-  margin-bottom: 30px;
-  font-size: 35px;
-}
-
-
-label {
-  font-family: "Neon";
-  color: #d00030;
-}
-
-.auth_n_auth {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin-top: 10px;
-}
-
-.modal_button_submit {
-  width: 100px;
-  height: 40px;
-  background-color: #000;
-  border-color: #d00030;
-  color: #d00030;
-  font-family: "Neon";
-  font-size: 15px;
-  margin: 20px 0;
-}
-
-a {
-  font-family: "Neon";
-  font-size: 50px;
-  text-decoration: none;
-  border-width: medium;
-  border-color: inherit;
-  border-style: ridge;
-  margin-top: 50px;
-  text-shadow: #f00030 0 0 10px;
-  color: #d00030;
-  padding: 10px;
 }
