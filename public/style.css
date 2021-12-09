@@ -10,54 +10,82 @@ html {
 
 body {
   height: 100%;
-  background-color: #000000;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+body.day {
+  background-color: #fff;
+}
+
+body.night {
+  background-color: #000;
+}
+
 h1 {
-  color: #d00030;
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-shadow: #f00030 0 0 10px; /*свечение для надписи*/
   font-size: 100px;
   font-family: "Neon";
   text-align: center;
 }
 
-h2 {
+h1.day {
+  color: #4C212B;
+}
+
+h1.night {
   color: #d00030;
+  text-shadow: #f00030 0 0 10px; /*свечение для надписи*/
+}
+
+h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  text-shadow: #f00030 0 0 10px; /*свечение для надписи*/
-  /*font-size: 100px;*/
   font-family: "Neon";
   text-align: center;
 }
 
-.button_shine {
+h2.day {
+  color: #4C212B;
+}
+
+h2.night {
+  color: #d00030;
+  text-shadow: #f00030 0 0 10px; /*свечение для надписи*/
+}
+
+.button {
   font-family: "Neon";
   font-size: 50px;
   text-decoration: none;
   border-width: medium;
   border-style: ridge;
-  border-color: #d00030;
   margin-top: 50px;
   padding: 15px;
   padding-bottom: 0px;
-  background-color: #000;
+}
+
+.day_button {
+  border-color: #4C212B;
+  background-color: #fff;
+  color: #4C212B;
+}
+
+.night_button {
   border-color: #d00030;
+  background-color: #000;
   color: #d00030;
   box-shadow: 0 0 10px  #f00030;
   text-shadow: #f00030 0 0 10px; /*свечение для надписи*/
 }
 
-.button_shine:hover {
+.night_button:hover{
   font-weight: bold;
   box-shadow: 0 0 100px #f00030; /*свечение для надписи*/
 }
