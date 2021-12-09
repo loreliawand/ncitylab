@@ -16,14 +16,6 @@ body {
   align-items: center;
 }
 
-body.day {
-  background-color: #fff;
-}
-
-body.night {
-  background-color: #000;
-}
-
 h1 {
   margin: 0;
   display: flex;
@@ -34,30 +26,12 @@ h1 {
   text-align: center;
 }
 
-h1.day {
-  color: #4C212B;
-}
-
-h1.night {
-  color: #d00030;
-  text-shadow: #f00030 0 0 10px; /*свечение для надписи*/
-}
-
 h2 {
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Neon";
   text-align: center;
-}
-
-h2.day {
-  color: #4C212B;
-}
-
-h2.night {
-  color: #d00030;
-  text-shadow: #f00030 0 0 10px; /*свечение для надписи*/
 }
 
 .button {
@@ -71,21 +45,62 @@ h2.night {
   padding-bottom: 0px;
 }
 
-.day_button {
-  border-color: #4C212B;
-  background-color: #fff;
-  color: #4C212B;
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
 }
 
-.night_button {
-  border-color: #d00030;
-  background-color: #000;
-  color: #d00030;
-  box-shadow: 0 0 10px  #f00030;
-  text-shadow: #f00030 0 0 10px; /*свечение для надписи*/
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
-.night_button:hover{
-  font-weight: bold;
-  box-shadow: 0 0 100px #f00030; /*свечение для надписи*/
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #4C212B;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #d00030;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+  background-color: black;
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
 }

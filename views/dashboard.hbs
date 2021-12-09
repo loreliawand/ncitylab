@@ -4,11 +4,17 @@
     <meta charset="utf-8">
     <title>Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="day.css" id="theme_link">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
   </head>
-  <body>
-    <h2>Welcome to the</h2>
-    <h1 class="nigth">NCityLab</h1>
-    <a href ="/about" class="button_shine">About this place</a>
+  <body id="body">
+    <label class="switch">
+      <input type="checkbox" id="day_night">
+      <span class="slider round"></span>
+    </label>
+    <h2 class="day">Welcome to the</h2>
+    <h1 class="day">NCityLab</h1>
+    <a href ="/about" class="button day_button">About this place</a>
+    <script src="day_night.js"></script>
   </body>
 </html>
