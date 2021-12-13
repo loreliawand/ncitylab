@@ -10,6 +10,15 @@ html(lang="ru")
       link(rel="shortcut icon" href="/favicon.ico" type="image/x-icon")
 
   body(id="body")
+
+    div.switch_div
+      img(src="/img/day_sun.png")
+      label.switch
+        input(type="checkbox" id="day_night")
+        span.slider.round
+      img(src="/img/night_moon.png")
+
     block content
 
   block scripts
+    script(src="day_night.js")
