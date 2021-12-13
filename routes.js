@@ -6,7 +6,7 @@ router.get('/', (req, res, next)=>{
 });
 
 router.get('/timer', (req, res, next)=>{
-    res.render('timer.pug', { title: 'Until New Year...' });
+    res.render('timer.pug', { title: 'Until the new Year' });
 });
 
 
