@@ -1,0 +1,29 @@
+extends template.pug
+
+block content
+
+  div.switch_div
+    img(src="/img/day_sun.png")
+    label.switch
+      input(type="checkbox" id="day_night")
+      span.slider.round
+    img(src="/img/night_moon.png")
+
+  div
+    h2.day Welcome to the
+    h1.day NCityLab
+
+    div.timer
+      h1.timer(id="timer")
+        p(id="timer-days")
+        p(id="timer-hours")
+        p(id="timer-mins")
+        p(id="timer-secs")
+
+    div.links
+      a.button.day_button(href ="/timer") Timer
+      a.button.day_button(href ="/about") About
+
+block scripts
+  script(src="day_night.js")
+  script(src="timer.js")
