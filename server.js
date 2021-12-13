@@ -2,13 +2,13 @@ const express = require('express');
 const app = express();
 const jsonParser = express.json();
 const bodyParser = require('body-parser');
-const Handlebars = require('handlebars');
+const pug = require('pug');
 const path = require('path');
 const router = require('./routes');
 const debug = require('debug')('server');
 const port = process.env.PORT || 3000;
 
-app.set("wiev engine", "hbs");
+app.set("wiev engine", "pug");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
