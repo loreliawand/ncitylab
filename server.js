@@ -6,6 +6,7 @@ const pug = require('pug');
 const path = require('path');
 const router = require('./routes');
 const debug = require('debug')('server');
+var localStorage = require('localStorage');
 const port = process.env.PORT || 3000;
 
 app.set("wiev engine", "pug");
