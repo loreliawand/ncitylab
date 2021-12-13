@@ -1,14 +1,15 @@
 doctype html
 
 html(lang="ru")
-
   head
-    meta(charset="utf-8")
-    title #{title}
-    link(rel="stylesheet" href="style.css")
-    link(rel="stylesheet" href="day.css" id="theme_link")
-    link(rel="shortcut icon" href="/favicon.ico" type="image/x-icon")
+    block head
+      meta(charset="utf-8")
+      title #{title}
+      link(rel="stylesheet" href="style.css")
+      link(rel="stylesheet" href="day.css" id="theme_link")
+      link(rel="shortcut icon" href="/favicon.ico" type="image/x-icon")
 
   body(id="body")
     block content
-    block scripts
+
+  block scripts
