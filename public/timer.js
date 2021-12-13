@@ -1,4 +1,12 @@
-var endDate = new Date("Jan 01, 2022 00:00:00").getTime();
+var today = new Date().getFullYear();
+var endDay = new Date();
+year = 2021;
+if (today === year) {
+    year++;
+};
+endDay.setFullYear(year, 0, 1);
+var endHour = endDay.setHours(0, 0, 0);
+var endDate = new Date(endHour).getTime();
 var timer = setInterval(function() {
     let now = new Date().getTime();
     let t = endDate - now;
@@ -20,9 +28,6 @@ var timer = setInterval(function() {
         + "<span class='label'>:</span>";
 
         document.getElementById("timer-secs").innerHTML = ("0"+secs).slice(-2);
-
-    } else {
-        document.getElementById("timer").innerHTML = "Time is over!";
 
     }
 
