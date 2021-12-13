@@ -1,0 +1,15 @@
+extends template.pug
+
+block content
+
+  div
+    div.timer
+      h1.timer(id="timer")
+        p(id="timer-days")
+        p(id="timer-hours")
+        p(id="timer-mins")
+        p(id="timer-secs")
+    div.links
+      a.button.day_button(href ="/") Dashboard
+
+  script(src="timer.js")
