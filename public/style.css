@@ -17,8 +17,6 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  /*justify-content: center;
-  align-items: center;*/
 }
 
 h1 {
@@ -52,7 +50,7 @@ a {
   margin: 10px;
 }
 
-label {
+/* label {
   display: flex;
   flex-direction: row;
 }
@@ -70,7 +68,7 @@ input:checked + .slider:before {
   -ms-transform: translateX(26px);
   transform: translateX(26px);
   background-color: black;
-}
+} */
 
 img {
   margin: 0px 10px 20px 10px;
@@ -89,16 +87,6 @@ img {
   font-family: "Timer";
 }
 
-.switch_div {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  position: fixed;
-  right: 0;
-  height: 50px;
-  width: 20%;
-}
-
 .button {
   display: flex;
   justify-content: center;
@@ -115,6 +103,38 @@ img {
   padding: 15px;
   padding-bottom: 0px;
 }
+
+.switch_div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  position: fixed;
+  right: 10px;
+  height: 50px;
+  width: 20%;
+}
+
+input[type=checkbox] {
+    display: block;
+    width: 30px;
+    height: 30px;
+    -webkit-appearance: none;
+    outline: 0;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+
+input[type='checkbox']:not(:checked) {
+ background-image: url('/img/night_moon.png');
+}
+
+input[type='checkbox']:checked {
+ background-image: url('/img/night_sun.png');
+}
+
+
+
+/*
 
 .switch {
   position: relative;
