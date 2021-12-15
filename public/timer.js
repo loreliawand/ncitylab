@@ -1,7 +1,7 @@
 var today = new Date().getFullYear();
 var endDay = new Date();
 year = 2021;
-if (today === year) {
+if (today === year || today >= year) {
     year++;
 };
 endDay.setFullYear(year, 0, 1);
