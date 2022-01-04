@@ -1,9 +1,9 @@
 var today = new Date().getFullYear();
 var endDay = new Date();
 year = 2021;
-if (today === year || today >= year) {
+do {
     year++;
-};
+  } while (year === today);
 endDay.setFullYear(year, 0, 1);
 var endHour = endDay.setHours(0, 0, 0);
 var endDate = new Date(endHour).getTime();
