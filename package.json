@@ -12,20 +12,8 @@
   "author": "Lorelia Wand",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
-    "connect-mongo": "^4.5.0",
-    "cors": "^2.8.5",
-    "debug": "^4.3.2",
     "express": "^4.17.1",
-    "express-session": "^1.17.2",
-    "handlebars": "^4.7.7",
-    "jsonwebtoken": "^8.5.1",
-    "localStorage": "^1.0.4",
-    "mongodb": "^4.1.0",
-    "mongoose": "^5.13.14",
-    "node-fetch": "^2.6.1",
-    "node-localstorage": "^2.2.1",
     "pug": "^3.0.2"
   },
   "devDependencies": {
