@@ -23,7 +23,7 @@
     "jsonwebtoken": "^8.5.1",
     "localStorage": "^1.0.4",
     "mongodb": "^4.1.0",
-    "mongoose": "^5.13.7",
+    "mongoose": "^5.13.14",
     "node-fetch": "^2.6.1",
     "node-localstorage": "^2.2.1",
     "pug": "^3.0.2"
