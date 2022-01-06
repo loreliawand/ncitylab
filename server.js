@@ -16,6 +16,7 @@ app.use(express.static(__dirname + '/public'));
 
 app.use('/', router);
 app.use('/timer', router);
+app.use('/form', router);
 
 main().catch(err => console.log(err));
 
