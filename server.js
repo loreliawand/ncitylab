@@ -6,8 +6,11 @@ const pug = require('pug');
 const path = require('path');
 const router = require('./routes');
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const User = require('./schema');
 const port = process.env.PORT || 3000;
 
+mongoose.connect('mongodb://localhost:27017/myapp');
 var db = mongoose.connection;
 db.on('error', console.log.bind(console, "connection error"));
 db.once('open', function(callback){
