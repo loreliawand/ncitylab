@@ -8,6 +8,12 @@ const router = require('./routes');
 const mongoose = require('mongoose');
 const port = process.env.PORT || 3000;
 
+var db = mongoose.connection;
+db.on('error', console.log.bind(console, "connection error"));
+db.once('open', function(callback){
+    console.log("connection succeeded");
+});
+
 app.set("wiev engine", "pug");
 
 app.use(bodyParser.json());
@@ -17,12 +23,6 @@ app.use(express.static(__dirname + '/public'));
 app.use('/', router);
 app.use('/timer', router);
 app.use('/form', router);
-
-main().catch(err => console.log(err));
-
-async function main() {
-  await mongoose.connect('mongodb://localhost:27017/ncitylab');
-}
 
 
 app.use(function(req, res, next) {
