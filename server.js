@@ -17,6 +17,13 @@ app.use(express.static(__dirname + '/public'));
 app.use('/', router);
 app.use('/timer', router);
 
+main().catch(err => console.log(err));
+
+async function main() {
+  await mongoose.connect('mongodb://localhost:27017/ncitylab');
+}
+
+
 app.use(function(req, res, next) {
   const err = new Error("Sorry, I didn't find anything");
   err.status = 404;
@@ -34,5 +41,3 @@ app.use(function(err, req, res, next) {
 app.listen(port, () => {
   console.log('Express web app available at localhost: 3000')
 });
-
-debug("Server is running");
