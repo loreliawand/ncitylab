@@ -1,8 +1,11 @@
-const Hello = () => {
+const Hello = (props) => {
   const now = new Date();
   return (
     <div>
-      <p>Hello world, my name is Lora, and it is {now.toString()}</p>
+      <p>
+        Hello world, my name is {props.name}, I am {props.age} years old and it
+        is {now.toString()}
+      </p>
     </div>
   );
 };
@@ -10,11 +13,12 @@ const Hello = () => {
 const App = () => {
   const a = 10;
   const b = 20;
-  console.log('All systems are working normally. Welcome');
+  const age = 25;
+  console.log('All systems are working normally');
   return (
     <div>
       <h1>Greetings!</h1>
-      <Hello />
+      <Hello name="Lora" age={age} />
       <p>
         Test: {a} + {b} = {a + b}
       </p>
