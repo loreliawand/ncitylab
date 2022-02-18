@@ -17,16 +17,23 @@ const Hello = ({ name, age }) => {
 };
 
 const App = () => {
+  const [seconds, countSeconds] = useState(0);
   const [counter, setCounter] = useState(0);
-  setTimeout(() => setCounter(counter + 1), 1000);
-  console.log('Rendering...', counter);
+  setTimeout(() => countSeconds(seconds + 1), 1000);
   return (
     <div>
       <h1>Greetings!</h1>
       <Hello />
       <h1>Counter</h1>
       <div>
-        <p>You didn't refresh this page {counter} seconds :)</p>
+        <p>You didn't refresh this page {seconds} seconds :)</p>
+      </div>
+      <div>
+        <p>You clicked on a beautiful button {counter} times :)</p>
+        <button onClick={() => setCounter(counter + 1)}>
+          I am a beautiful button :)
+        </button>
+        <button onClick={() => setCounter(0)}>Reset! &gt;:(</button>
       </div>
     </div>
   );
