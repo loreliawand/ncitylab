@@ -1,4 +1,7 @@
+import { useState } from 'react';
+
 const Hello = ({ name, age }) => {
+  console.log('All systems are working normally');
   name = 'Lora';
   age = 26;
   const bornYear = () => new Date().getFullYear() - age;
@@ -13,16 +16,18 @@ const Hello = ({ name, age }) => {
   );
 };
 
-const App = (props) => {
-  console.log('All systems are working normally');
-  const { counter } = props;
+const App = () => {
+  const [counter, setCounter] = useState(0);
+  setTimeout(() => setCounter(counter + 1), 1000);
+  console.log('Rendering...', counter);
   return (
     <div>
       <h1>Greetings!</h1>
       <Hello />
       <h1>Counter</h1>
-      <p>Counter refresh every second</p>
-      <div>{counter}</div>
+      <div>
+        <p>You didn't refresh this page {counter} seconds :)</p>
+      </div>
     </div>
   );
 };
