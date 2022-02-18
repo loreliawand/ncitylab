@@ -20,6 +20,8 @@ const App = () => {
   const [seconds, countSeconds] = useState(0);
   const [counter, setCounter] = useState(0);
   setTimeout(() => countSeconds(seconds + 1), 1000);
+  const increaseByOne = () => setCounter(counter + 1);
+  const setToZero = () => setCounter(0);
   return (
     <div>
       <h1>Greetings!</h1>
@@ -30,10 +32,8 @@ const App = () => {
       </div>
       <div>
         <p>You clicked on a beautiful button {counter} times :)</p>
-        <button onClick={() => setCounter(counter + 1)}>
-          I am a beautiful button :)
-        </button>
-        <button onClick={() => setCounter(0)}>Reset! &gt;:(</button>
+        <button onClick={increaseByOne}>I am a beautiful button :)</button>
+        <button onClick={setToZero}>Reset! &gt;:(</button>
       </div>
     </div>
   );
