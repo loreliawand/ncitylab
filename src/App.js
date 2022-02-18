@@ -16,17 +16,15 @@ const Hello = ({ name, age }) => {
   );
 };
 
-const CountSeconds = (props) => {
-  return <div>You didn't refresh this page {props.seconds} seconds :)</div>;
-};
+const CountSeconds = ({ seconds }) => (
+  <div>You didn't refresh this page {seconds} seconds :)</div>
+);
 
-const Counter = (props) => {
-  return <div>Result of clicking is {props.counter} now :)</div>;
-};
+const Counter = ({ counter }) => (
+  <div>Result of clicking is {counter} now :)</div>
+);
 
-const Button = (props) => {
-  return <button onClick={props.onClick}>{props.text}</button>;
-};
+const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
 
 const App = () => {
   const [seconds, countSeconds] = useState(0);
