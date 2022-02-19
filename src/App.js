@@ -29,17 +29,34 @@ const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
 const App = () => {
   const [seconds, countSeconds] = useState(0);
   const [counter, setCounter] = useState(0);
-  const [clicks, setClicks] = useState({ left: 0, right: 0 });
+  const [counterHistory, setCounterHistory] = useState([]);
+  const [left, setLeft] = useState(0);
+  const [right, setRight] = useState(0);
+  const [allClicks, setAll] = useState([]);
 
   setTimeout(() => countSeconds(seconds + 1), 1000);
 
-  const increaseByOne = () => setCounter(counter + 1);
-  const decreaseByOne = () => setCounter(counter - 1);
-  const setToZero = () => setCounter(0);
+  const increaseByOne = () => {
+    setCounterHistory(counterHistory.concat('+ 1'));
+    setCounter(counter + 1);
+  };
+  const decreaseByOne = () => {
+    setCounterHistory(counterHistory.concat('- 1'));
+    setCounter(counter - 1);
+  };
+  const setToZero = () => {
+    setCounterHistory(counterHistory.concat('0'));
+    setCounter(0);
+  };
 
-  const handleLeftClick = () => setClicks({ ...clicks, left: clicks.left + 1 });
-  const handleRightClick = () =>
-    setClicks({ ...clicks, right: clicks.right + 1 });
+  const handleLeftClick = () => {
+    setAll(allClicks.concat('L'));
+    setLeft(left + 1);
+  };
+  const handleRightClick = () => {
+    setAll(allClicks.concat('R'));
+    setRight(right + 1);
+  };
 
   return (
     <div>
@@ -57,14 +74,16 @@ const App = () => {
         <Button onClick={increaseByOne} text="I am increase by one :)" />
         <Button onClick={decreaseByOne} text="I am decrease be one :)" />
         <Button onClick={setToZero} text="Reset! &gt;:(" />
+        <p>History: {counterHistory.join(' ')}</p>
       </div>
 
       <div>
         <h1>Left and right</h1>
-        {clicks.left}
-        <button onClick={handleLeftClick}>I am a left button :)</button>
-        <button onClick={handleRightClick}>I am a right button :)</button>
-        {clicks.right}
+        {left}
+        <Button onClick={handleLeftClick} text="I am a left button :)" />
+        <Button onClick={handleRightClick} text="I am a right button :)" />
+        {right}
+        <p>History: {allClicks.join(' ')}</p>
       </div>
     </div>
   );
