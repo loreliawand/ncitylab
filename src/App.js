@@ -24,7 +24,16 @@ const Counter = ({ counter }) => (
   <div>Result of clicking is {counter} now :)</div>
 );
 
-const Button = ({ onClick, text }) => <button onClick={onClick}>{text}</button>;
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
+);
+
+const History = (props) => {
+  if (props.allClicks.length === 0) {
+    return <div>The app is used by pressing the buttons</div>;
+  }
+  return <div>Button press history: {props.allClicks.join(' ')}</div>;
+};
 
 const App = () => {
   const [seconds, countSeconds] = useState(0);
@@ -71,19 +80,19 @@ const App = () => {
       <div>
         <h1>Counter</h1>
         <Counter counter={counter} />
-        <Button onClick={increaseByOne} text="I am increase by one :)" />
-        <Button onClick={decreaseByOne} text="I am decrease be one :)" />
-        <Button onClick={setToZero} text="Reset! &gt;:(" />
-        <p>History: {counterHistory.join(' ')}</p>
+        <Button handleClick={increaseByOne} text="I am increase by one :)" />
+        <Button handleClick={decreaseByOne} text="I am decrease be one :)" />
+        <Button handleClick={setToZero} text="Reset! &gt;:(" />
+        <History allClicks={counterHistory} />
       </div>
 
       <div>
         <h1>Left and right</h1>
         {left}
-        <Button onClick={handleLeftClick} text="I am a left button :)" />
-        <Button onClick={handleRightClick} text="I am a right button :)" />
+        <Button handleClick={handleLeftClick} text="I am a left button :)" />
+        <Button handleClick={handleRightClick} text="I am a right button :)" />
         {right}
-        <p>History: {allClicks.join(' ')}</p>
+        <History allClicks={allClicks} />
       </div>
     </div>
   );
