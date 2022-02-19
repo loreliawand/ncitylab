@@ -58,6 +58,10 @@ const App = () => {
     setCounter(0);
   };
 
+  const clearClickingHistory = () => {
+    setCounterHistory([]);
+  };
+
   const handleLeftClick = () => {
     setAll(allClicks.concat('L'));
     setLeft(left + 1);
@@ -65,6 +69,10 @@ const App = () => {
   const handleRightClick = () => {
     setAll(allClicks.concat('R'));
     setRight(right + 1);
+  };
+
+  const clearAllHistory = () => {
+    setAll([]);
   };
 
   return (
@@ -84,6 +92,7 @@ const App = () => {
         <Button handleClick={decreaseByOne} text="I am decrease be one :)" />
         <Button handleClick={setToZero} text="Reset! &gt;:(" />
         <History allClicks={counterHistory} />
+        <Button handleClick={clearClickingHistory} text="Clear history" />
       </div>
 
       <div>
@@ -93,6 +102,7 @@ const App = () => {
         <Button handleClick={handleRightClick} text="I am a right button :)" />
         {right}
         <History allClicks={allClicks} />
+        <Button handleClick={clearAllHistory} text="Clear history" />
       </div>
     </div>
   );
