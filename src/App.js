@@ -1,41 +1,14 @@
 import { useState } from 'react';
+import Button from './components/Button';
+import Counter from './components/Counter';
+import CountSeconds from './components/CountSeconds';
+import Hello from './components/Hello';
+import History from './components/History';
+import Note from './components/Note';
 
-const Hello = ({ name, age }) => {
+const App = ({ notes }) => {
   console.log('All systems are working normally');
-  name = 'Lora';
-  age = 26;
-  const bornYear = () => new Date().getFullYear() - age;
-  return (
-    <div>
-      <p>
-        Hello world, my name is {name}, I am {age} years old.
-      </p>
-      <p>So I was born in {bornYear()}.</p>
-      <p>This is my website :)</p>
-    </div>
-  );
-};
 
-const CountSeconds = ({ seconds }) => (
-  <div>You didn't refresh this page {seconds} seconds :)</div>
-);
-
-const Counter = ({ counter }) => (
-  <div>Result of clicking is {counter} now :)</div>
-);
-
-const Button = ({ handleClick, text }) => (
-  <button onClick={handleClick}>{text}</button>
-);
-
-const History = (props) => {
-  if (props.allClicks.length === 0) {
-    return <div>The app is used by pressing the buttons</div>;
-  }
-  return <div>Button press history: {props.allClicks.join(' ')}</div>;
-};
-
-const App = (props) => {
   const [seconds, countSeconds] = useState(0);
   const [counter, setCounter] = useState(0);
   const [counterHistory, setCounterHistory] = useState([]);
@@ -75,8 +48,6 @@ const App = (props) => {
     setAll([]);
   };
 
-  const { notes } = props;
-
   return (
     <div>
       <div>
@@ -113,7 +84,7 @@ const App = (props) => {
         <h1>Notes</h1>
         <ul>
           {notes.map((note) => (
-            <li key={note.id}>{note.content}</li>
+            <Note key={note.id} note={note} />
           ))}
         </ul>
       </div>
