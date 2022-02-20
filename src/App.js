@@ -35,7 +35,7 @@ const History = (props) => {
   return <div>Button press history: {props.allClicks.join(' ')}</div>;
 };
 
-const App = () => {
+const App = (props) => {
   const [seconds, countSeconds] = useState(0);
   const [counter, setCounter] = useState(0);
   const [counterHistory, setCounterHistory] = useState([]);
@@ -75,10 +75,14 @@ const App = () => {
     setAll([]);
   };
 
+  const { notes } = props;
+
   return (
     <div>
-      <h1>Greetings!</h1>
-      <Hello />
+      <div>
+        <h1>Greetings!</h1>
+        <Hello />
+      </div>
 
       <div>
         <h1>Seconds</h1>
@@ -103,6 +107,15 @@ const App = () => {
         {right}
         <History allClicks={allClicks} />
         <Button handleClick={clearAllHistory} text="Clear history" />
+      </div>
+
+      <div>
+        <h1>Notes</h1>
+        <ul>
+          {notes.map((note) => (
+            <li>{note.content}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );
