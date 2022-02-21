@@ -16,7 +16,8 @@ const App = (props) => {
   const [right, setRight] = useState(0);
   const [allClicks, setAll] = useState([]);
   const [notes, setNotes] = useState(props.notes);
-  const [newNote, setNewNote] = useState('a new note...');
+  const [newNote, setNewNote] = useState('');
+  const [showAllNotes, setShowAllNotes] = useState(true);
 
   setTimeout(() => countSeconds(seconds + 1), 1000);
 
@@ -64,9 +65,12 @@ const App = (props) => {
   };
 
   const handleNoteChange = (event) => {
-    console.log(event.target.value);
     setNewNote(event.target.value);
   };
+
+  const notesToShow = showAllNotes
+    ? notes
+    : notes.filter((note) => note.important === true);
 
   return (
     <div>
@@ -102,8 +106,13 @@ const App = (props) => {
 
       <div>
         <h1>Notes</h1>
+        <div>
+          <button onClick={() => setShowAllNotes(!showAllNotes)}>
+            show {showAllNotes ? 'important' : 'all'}
+          </button>
+        </div>
         <ul>
-          {notes.map((note) => (
+          {notesToShow.map((note) => (
             <Note key={note.id} note={note} />
           ))}
         </ul>
