@@ -6,7 +6,7 @@ import Hello from './components/Hello';
 import History from './components/History';
 import Note from './components/Note';
 
-const App = ({ notes }) => {
+const App = (props) => {
   console.log('All systems are working normally');
 
   const [seconds, countSeconds] = useState(0);
@@ -15,6 +15,8 @@ const App = ({ notes }) => {
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
   const [allClicks, setAll] = useState([]);
+  const [notes, setNotes] = useState(props.notes);
+  const [newNote, setNewNote] = useState('a new note...');
 
   setTimeout(() => countSeconds(seconds + 1), 1000);
 
@@ -46,6 +48,24 @@ const App = ({ notes }) => {
 
   const clearAllHistory = () => {
     setAll([]);
+  };
+
+  const addNote = (event) => {
+    event.preventDefault();
+    const noteObject = {
+      content: newNote,
+      date: new Date().toISOString(),
+      important: Math.random() < 0.5,
+      id: notes.length + 1,
+    };
+
+    setNotes(notes.concat(noteObject));
+    setNewNote('');
+  };
+
+  const handleNoteChange = (event) => {
+    console.log(event.target.value);
+    setNewNote(event.target.value);
   };
 
   return (
@@ -87,6 +107,10 @@ const App = ({ notes }) => {
             <Note key={note.id} note={note} />
           ))}
         </ul>
+        <form onSubmit={addNote}>
+          <input value={newNote} onChange={handleNoteChange} />
+          <button type="submit">save</button>
+        </form>
       </div>
     </div>
   );
