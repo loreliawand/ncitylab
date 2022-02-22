@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom';
 import App from './App';
+import axios from 'axios';
 
 let counter = 1;
 
@@ -24,7 +25,10 @@ const notes = [
   },
 ];
 
-ReactDOM.render(
-  <App counter={counter} notes={notes} />,
-  document.getElementById('root')
-);
+axios.get('http://localhost:3001/notes').then((response) => {
+  const notes = response.data;
+  ReactDOM.render(
+    <App counter={counter} notes={notes} />,
+    document.getElementById('root')
+  );
+});
