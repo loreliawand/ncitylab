@@ -23,7 +23,6 @@ const App = () => {
   useEffect(() => {
     noteService.getAll().then((initialNotes) => setNotes(initialNotes));
   }, []);
-  console.log('render', notes.length, 'notes');
 
   setTimeout(() => countSeconds(seconds + 1), 1000);
 
