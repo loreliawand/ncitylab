@@ -3,6 +3,7 @@ import './index.css';
 import Button from './components/Button';
 import Counter from './components/Counter';
 import CountSeconds from './components/CountSeconds';
+import Footer from './components/Footer';
 import Hello from './components/Hello';
 import History from './components/History';
 import Note from './components/Note';
@@ -154,6 +155,10 @@ const App = () => {
 
       <div>
         <CountSeconds seconds={seconds} />
+      </div>
+
+      <div className="right">
+        <Footer />
       </div>
     </div>
   );
