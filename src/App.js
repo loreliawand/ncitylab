@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import './index.css';
 import Button from './components/Button';
 import Counter from './components/Counter';
 import CountSeconds from './components/CountSeconds';
 import Hello from './components/Hello';
 import History from './components/History';
 import Note from './components/Note';
+import Notifications from './components/Notifications';
 import noteService from './services/notes';
 
 const App = () => {
@@ -19,6 +21,7 @@ const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState('');
   const [showAllNotes, setShowAllNotes] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     noteService.getAll().then((initialNotes) => setNotes(initialNotes));
@@ -84,7 +87,12 @@ const App = () => {
         setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)));
       })
       .catch((error) => {
-        alert(`the note '${note.content}' was already deleted from server`);
+        setErrorMessage(
+          `Note '${note.content}' was already removed from server`
+        );
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
         setNotes(notes.filter((n) => n.id !== id));
       });
   };
@@ -95,17 +103,11 @@ const App = () => {
 
   return (
     <div>
-      <div>
-        <h1>Greetings!</h1>
+      <div className="center">
         <Hello />
       </div>
 
-      <div>
-        <h1>Seconds</h1>
-        <CountSeconds seconds={seconds} />
-      </div>
-
-      <div>
+      <div className="right lightgreen">
         <h1>Counter</h1>
         <Counter counter={counter} />
         <Button handleClick={increaseByOne} text="I am increase by one :)" />
@@ -115,7 +117,7 @@ const App = () => {
         <Button handleClick={clearClickingHistory} text="Clear history" />
       </div>
 
-      <div>
+      <div className="center">
         <h1>Left and right</h1>
         {left}
         <Button handleClick={handleLeftClick} text="I am a left button :)" />
@@ -125,8 +127,9 @@ const App = () => {
         <Button handleClick={clearAllHistory} text="Clear history" />
       </div>
 
-      <div>
+      <div className="lightgreen">
         <h1>Notes</h1>
+        <Notifications message={errorMessage} />
         <div>
           <button onClick={() => setShowAllNotes(!showAllNotes)}>
             show {showAllNotes ? 'important' : 'all'}
@@ -147,6 +150,10 @@ const App = () => {
           <input value={newNote} onChange={handleNoteChange} />
           <button type="submit">save</button>
         </form>
+      </div>
+
+      <div>
+        <CountSeconds seconds={seconds} />
       </div>
     </div>
   );
