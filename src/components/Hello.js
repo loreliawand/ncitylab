@@ -6,6 +6,7 @@ const Hello = ({ name, age }) => {
   const bornYear = () => new Date().getFullYear() - age;
   return (
     <div>
+      <h1>Greetings!</h1>
       <p>
         Hello world, my name is {name}, I am {age} years old.
       </p>
