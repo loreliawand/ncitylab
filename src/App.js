@@ -1,47 +1,32 @@
-import { useState } from 'react';
-
-const Hello = ({ name, age }) => {
-  console.log('All systems are working normally');
-  name = 'Lora';
-  age = 26;
-  const bornYear = () => new Date().getFullYear() - age;
-  return (
-    <div>
-      <p>
-        Hello world, my name is {name}, I am {age} years old.
-      </p>
-      <p>So I was born in {bornYear()}.</p>
-      <p>This is my website :)</p>
-    </div>
-  );
-};
-
-const CountSeconds = ({ seconds }) => (
-  <div>You didn't refresh this page {seconds} seconds :)</div>
-);
-
-const Counter = ({ counter }) => (
-  <div>Result of clicking is {counter} now :)</div>
-);
-
-const Button = ({ handleClick, text }) => (
-  <button onClick={handleClick}>{text}</button>
-);
-
-const History = (props) => {
-  if (props.allClicks.length === 0) {
-    return <div>The app is used by pressing the buttons</div>;
-  }
-  return <div>Button press history: {props.allClicks.join(' ')}</div>;
-};
+import { useState, useEffect } from 'react';
+import './index.css';
+import Button from './components/Button';
+import Counter from './components/Counter';
+import CountSeconds from './components/CountSeconds';
+import Footer from './components/Footer';
+import Hello from './components/Hello';
+import History from './components/History';
+import Note from './components/Note';
+import Notifications from './components/Notifications';
+import noteService from './services/notes';
 
 const App = () => {
+  console.log('All systems are working normally');
+
   const [seconds, countSeconds] = useState(0);
   const [counter, setCounter] = useState(0);
   const [counterHistory, setCounterHistory] = useState([]);
   const [left, setLeft] = useState(0);
   const [right, setRight] = useState(0);
   const [allClicks, setAll] = useState([]);
+  const [notes, setNotes] = useState([]);
+  const [newNote, setNewNote] = useState('');
+  const [showAllNotes, setShowAllNotes] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    noteService.getAll().then((initialNotes) => setNotes(initialNotes));
+  }, []);
 
   setTimeout(() => countSeconds(seconds + 1), 1000);
 
@@ -75,17 +60,55 @@ const App = () => {
     setAll([]);
   };
 
+  const addNote = (event) => {
+    event.preventDefault();
+    const noteObject = {
+      content: newNote,
+      date: new Date().toISOString(),
+      important: Math.random() < 0.5,
+    };
+
+    noteService.create(noteObject).then((returnedNote) => {
+      setNotes(notes.concat(returnedNote));
+      setNewNote('');
+    });
+  };
+
+  const handleNoteChange = (event) => {
+    setNewNote(event.target.value);
+  };
+
+  const toggleImportanceOf = (id) => {
+    const note = notes.find((n) => n.id === id);
+    const changeNote = { ...note, important: !note.important };
+
+    noteService
+      .update(id, changeNote)
+      .then((returnedNote) => {
+        setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)));
+      })
+      .catch((error) => {
+        setErrorMessage(
+          `Note '${note.content}' was already removed from server`
+        );
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+        setNotes(notes.filter((n) => n.id !== id));
+      });
+  };
+
+  const notesToShow = showAllNotes
+    ? notes
+    : notes.filter((note) => note.important === true);
+
   return (
     <div>
-      <h1>Greetings!</h1>
-      <Hello />
-
-      <div>
-        <h1>Seconds</h1>
-        <CountSeconds seconds={seconds} />
+      <div className="center">
+        <Hello />
       </div>
 
-      <div>
+      <div className="right lightgreen">
         <h1>Counter</h1>
         <Counter counter={counter} />
         <Button handleClick={increaseByOne} text="I am increase by one :)" />
@@ -95,7 +118,7 @@ const App = () => {
         <Button handleClick={clearClickingHistory} text="Clear history" />
       </div>
 
-      <div>
+      <div className="center">
         <h1>Left and right</h1>
         {left}
         <Button handleClick={handleLeftClick} text="I am a left button :)" />
@@ -103,6 +126,39 @@ const App = () => {
         {right}
         <History allClicks={allClicks} />
         <Button handleClick={clearAllHistory} text="Clear history" />
+      </div>
+
+      <div className="lightgreen">
+        <h1>Notes</h1>
+        <Notifications message={errorMessage} />
+        <div>
+          <button onClick={() => setShowAllNotes(!showAllNotes)}>
+            show {showAllNotes ? 'important' : 'all'}
+          </button>
+        </div>
+        <ul>
+          {notesToShow.map((note) => (
+            <Note
+              key={note.id}
+              note={note}
+              toggleImportance={() => {
+                toggleImportanceOf(note.id);
+              }}
+            />
+          ))}
+        </ul>
+        <form onSubmit={addNote}>
+          <input value={newNote} onChange={handleNoteChange} />
+          <button type="submit">save</button>
+        </form>
+      </div>
+
+      <div>
+        <CountSeconds seconds={seconds} />
+      </div>
+
+      <div className="right">
+        <Footer />
       </div>
     </div>
   );
