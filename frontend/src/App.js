@@ -9,6 +9,7 @@ import History from './components/History';
 import Note from './components/Note';
 import Notifications from './components/Notifications';
 import noteService from './services/notes';
+import axios from 'axios';
 
 const App = () => {
   console.log('All systems are working normally');
@@ -25,7 +26,9 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
-    noteService.getAll().then((initialNotes) => setNotes(initialNotes));
+    axios.get('http://localhost:3001/api/notes').then((res) => {
+      setNotes(res.data);
+    });
   }, []);
 
   setTimeout(() => countSeconds(seconds + 1), 1000);
