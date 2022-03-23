@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const http = require('http');
 const express = require('express');
 const cors = require('cors');
@@ -12,8 +14,6 @@ const requestLogger = (request, response, next) => {
   console.log('---');
   next();
 };
-
-const url = `mongodb+srv://Lorelia:<password>@cluster.yj9aq.mongodb.net/testingApp?retryWrites=true&w=majority`;
 
 mongoose.connect(url);
 
@@ -113,6 +113,6 @@ const unknownEndpoint = (request, response) => {
 };
 app.use(unknownEndpoint);
 
-const PORT = 3001;
+const PORT = process.env.PORT;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
