@@ -63,7 +63,7 @@ app.get('/api/notes', (request, response) => {
 });
 
 app.get('/api/notes/:id', (request, response, next) => {
-  Note.findByID(request.params.id)
+  Note.findById(request.params.id)
     .then((note) => {
       if (note) {
         response.json(note);
@@ -92,11 +92,24 @@ app.post('/api/notes', (request, response) => {
   });
 });
 
-app.delete('/api/notes/:id', (request, response) => {
-  const id = Number(request.params.id);
-  notes = notes.filter((note) => note.id !== id);
+app.put('/api/notes/:id', (request, response, next) => {
+  const body = request.body;
 
-  response.status(204).end();
+  const note = { content: body.content, important: body.important };
+
+  Note.findByIdAndUpdate(request.params.id, note, { new: true })
+    .then((updatedNote) => {
+      response.json(updatedNote);
+    })
+    .catch((error) => next(error));
+});
+
+app.delete('/api/notes/:id', (request, response) => {
+  Note.findByIdAndRemove(request.params.id)
+    .then((result) => {
+      response.status(204).end();
+    })
+    .catch((error) => next(error));
 });
 
 const unknownEndpoint = (request, response) => {
