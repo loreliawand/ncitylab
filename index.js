@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const mongoose = require('mongoose');
+const Note = require('./models/note');
 
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method);
