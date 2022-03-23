@@ -15,10 +15,21 @@ const requestLogger = (request, response, next) => {
   next();
 };
 
+const errorHandler = (error, request, response, next) => {
+  console.log(error.message);
+
+  if (error.name === 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' });
+  }
+
+  next(error);
+};
+
 app.use(express.json());
 app.use(requestLogger);
 app.use(cors());
 app.use(express.static('build'));
+app.use(errorHandler);
 
 let notes = [
   {
@@ -51,15 +62,17 @@ app.get('/api/notes', (request, response) => {
   });
 });
 
-app.get('/api/notes/:id', (request, response) => {
-  Note.findByID(request.params.id).then((note) => {
-    response.json(note);
-  });
+app.get('/api/notes/:id', (request, response, next) => {
+  Note.findByID(request.params.id)
+    .then((note) => {
+      if (note) {
+        response.json(note);
+      } else {
+        response.status(404).end();
+      }
+    })
+    .catch((error) => next(error));
 });
-
-const generateID = () => {
-  const maxID = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) : 0;
-};
 
 app.post('/api/notes', (request, response) => {
   const body = request.body;
