@@ -13,7 +13,7 @@ mongoose
     console.log('error connecting to MongoDB Atlas:', error.message);
   });
 
-const noteSchema = new Mongoose.schema({
+const noteSchema = new mongoose.Schema({
   content: String,
   date: Date,
   important: Boolean,
