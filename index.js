@@ -2,6 +2,7 @@ const http = require('http');
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const mongoose = require('mongoose');
 
 const requestLogger = (request, response, next) => {
   console.log('Method:', request.method);
@@ -10,6 +11,18 @@ const requestLogger = (request, response, next) => {
   console.log('---');
   next();
 };
+
+const url = `mongodb+srv://Lorelia:<password>@cluster.yj9aq.mongodb.net/testingApp?retryWrites=true&w=majority`;
+
+mongoose.connect(url);
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  date: Date,
+  important: Boolean,
+});
+
+const Note = mongoose.model('Note', noteSchema);
 
 app.use(express.json());
 app.use(requestLogger);
@@ -42,7 +55,9 @@ app.get('/', (request, response) => {
 });
 
 app.get('/api/notes', (request, response) => {
-  response.json(notes);
+  Note.find({}).then((notes) => {
+    response.json(notes);
+  });
 });
 
 app.get('/api/notes/:id', (request, response) => {
