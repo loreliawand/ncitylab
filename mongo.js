@@ -14,8 +14,8 @@ const url = `mongodb+srv://Lorelia:${password}@cluster.yj9aq.mongodb.net/testing
 mongoose.connect(url);
 
 const noteSchema = new mongoose.Schema({
-  content: String,
-  date: Date,
+  content: { type: String, required: true },
+  date: { type: Date, required: true },
   important: Boolean,
 });
 
