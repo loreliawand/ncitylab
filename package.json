@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/loreliawand/ncitylab.git"
   },
-  "proxy": "http://localhost:3000 http://ncitylab.com",
+  "proxy": "http://localhost:3000",
   "keywords": [
     "Practice",
     "Javascript",
