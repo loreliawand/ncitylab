@@ -1,21 +1,8 @@
 const mongoose = require('mongoose');
 
-const url = process.env.MONGODB_URI;
-
-console.log('connecting to', url);
-
-mongoose
-  .connect(url)
-  .then((result) => {
-    console.log('connected to MongoDB Atlas');
-  })
-  .catch((error) => {
-    console.log('error connecting to MongoDB Atlas:', error.message);
-  });
-
 const noteSchema = new mongoose.Schema({
-  content: String,
-  date: Date,
+  content: { type: String, required: true },
+  date: { type: Date, required: true },
   important: Boolean,
 });
 
