@@ -1,5 +1,5 @@
-post http://localhost:3001/api/notes
+post http://localhost:3000/api/notes
 Content-Type: application/json
 
-{"content": "Example for testing", 
+{"content": "Another example for testing", 
 "important": false}
