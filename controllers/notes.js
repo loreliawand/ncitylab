@@ -18,8 +18,7 @@ notesRouter.get('/:id', async (request, response) => {
 notesRouter.post('/', async (request, response) => {
   const body = request.body;
 
-  const note = new Note();
-  ({
+  const note = new Note({
     content: body.content,
     important: body.important || false,
     date: new Date(),
