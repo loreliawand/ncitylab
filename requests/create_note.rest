@@ -1,5 +1,6 @@
-post http://localhost:3001/api/notes
+post http://localhost:3000/api/notes
 Content-Type: application/json
 
-{"content": "Example for testing", 
-"important": false}
+{"content": "New note from Ania", 
+"important": false, 
+"userId": "6252adf4d9a6fe9311390dc1"}
