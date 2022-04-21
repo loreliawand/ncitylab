@@ -35,6 +35,15 @@ const App = () => {
     });
   }, []);
 
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser');
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      setUser(user);
+      noteService.setToken(user.token);
+    }
+  }, []);
+
   setTimeout(() => countSeconds(seconds + 1), 1000);
 
   const increaseByOne = () => {
@@ -145,6 +154,7 @@ const App = () => {
         password,
       });
 
+      window.localStorage.setItem('loggedUser', JSON.stringify(user));
       noteService.setToken(user.token);
       setUser(user);
       setUsername('');
