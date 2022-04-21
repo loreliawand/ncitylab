@@ -10,6 +10,7 @@ import Note from './components/Note';
 import Notifications from './components/Notifications';
 import noteService from './services/notes';
 import axios from 'axios';
+import loginService from './services/login';
 
 const App = () => {
   console.log('All systems are working normally');
@@ -26,6 +27,7 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     axios.get('http://ncitylab.com/api/notes').then((res) => {
@@ -103,9 +105,23 @@ const App = () => {
       });
   };
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    console.log('logging in with', username, password);
+
+    try {
+      const user = await loginService.login({
+        username,
+        password,
+      });
+      setUser(user);
+      setUsername('');
+      setPassword('');
+    } catch (exception) {
+      setErrorMessage('Wrong credentials');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
   };
 
   const notesToShow = showAllNotes
