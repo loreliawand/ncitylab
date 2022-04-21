@@ -67,6 +67,37 @@ const App = () => {
     setAll([]);
   };
 
+  const loginForm = () => (
+    <form onSubmit={handleLogin}>
+      <div>
+        username
+        <input
+          type="text"
+          value={username}
+          name="Username"
+          onChange={({ target }) => setUsername(target.value)}
+        />
+      </div>
+      <div>
+        password
+        <input
+          type="password"
+          value={password}
+          name="Password"
+          onChange={({ target }) => setPassword(target.value)}
+        />
+      </div>
+      <button type="submit">login</button>
+    </form>
+  );
+
+  const noteForm = () => (
+    <form onSubmit={addNote}>
+      <input value={newNote} onChange={handleNoteChange} />
+      <button type="submit">save</button>
+    </form>
+  );
+
   const addNote = (event) => {
     event.preventDefault();
     const noteObject = {
@@ -132,27 +163,15 @@ const App = () => {
     <div>
       <div className="center">
         <Hello />
-        <form onSubmit={handleLogin}>
+
+        {user === null ? (
+          loginForm()
+        ) : (
           <div>
-            username
-            <input
-              type="text"
-              value={username}
-              name="Username"
-              onChange={({ target }) => setUsername(target.value)}
-            />
+            <p>{user.name} logged-in</p>
+            {noteForm()}
           </div>
-          <div>
-            password
-            <input
-              type="password"
-              value={password}
-              name="Password"
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </div>
-          <button type="submit">login</button>
-        </form>
+        )}
       </div>
 
       <div className="right lightgreen">
