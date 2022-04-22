@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './index.css';
 import Button from './components/Button';
 import Counter from './components/Counter';
@@ -78,10 +78,13 @@ const App = () => {
   };
 
   const addNote = (noteObject) => {
+    noteFormRef.current.toggleVisibility();
     noteService.create(noteObject).then((returnedNote) => {
       setNotes(notes.concat(returnedNote));
     });
   };
+
+  const noteFormRef = useRef();
 
   const toggleImportanceOf = (id) => {
     const note = notes.find((n) => n.id === id);
