@@ -12,6 +12,7 @@ import noteService from './services/notes';
 import axios from 'axios';
 import loginService from './services/login';
 import LoginForm from './components/LoginForm';
+import Togglable from './components/Togglable';
 
 const App = () => {
   const [seconds, countSeconds] = useState(0);
@@ -175,7 +176,15 @@ const App = () => {
         <Hello />
 
         {user === null ? (
-          loginForm()
+          <Togglable buttonLabel="login">
+            <LoginForm
+              username={username}
+              password={password}
+              handleUsernameChange={({ target }) => setUsername(target.value)}
+              handlePasswordChange={({ target }) => setPassword(target.value)}
+              handleSubmit={handleLogin}
+            />
+          </Togglable>
         ) : (
           <div>
             <p>{user.username} logged-in</p>
