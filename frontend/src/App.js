@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './index.css';
 import Button from './components/Button';
 import Counter from './components/Counter';
@@ -6,14 +6,16 @@ import CountSeconds from './components/CountSeconds';
 import Footer from './components/Footer';
 import Hello from './components/Hello';
 import History from './components/History';
+import LoginForm from './components/LoginForm';
 import Note from './components/Note';
+import NoteForm from './components/NoteForm';
 import Notifications from './components/Notifications';
+import Togglable from './components/Togglable';
 import noteService from './services/notes';
 import axios from 'axios';
+import loginService from './services/login';
 
 const App = () => {
-  console.log('All systems are working normally');
-
   const [seconds, countSeconds] = useState(0);
   const [counter, setCounter] = useState(0);
   const [counterHistory, setCounterHistory] = useState([]);
@@ -21,14 +23,26 @@ const App = () => {
   const [right, setRight] = useState(0);
   const [allClicks, setAll] = useState([]);
   const [notes, setNotes] = useState([]);
-  const [newNote, setNewNote] = useState('');
   const [showAllNotes, setShowAllNotes] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     axios.get('http://ncitylab.com/api/notes').then((res) => {
       setNotes(res.data);
+      console.log('All systems are working normally');
     });
+  }, []);
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser');
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON);
+      setUser(user);
+      noteService.setToken(user.token);
+    }
   }, []);
 
   setTimeout(() => countSeconds(seconds + 1), 1000);
@@ -63,23 +77,14 @@ const App = () => {
     setAll([]);
   };
 
-  const addNote = (event) => {
-    event.preventDefault();
-    const noteObject = {
-      content: newNote,
-      date: new Date().toISOString(),
-      important: Math.random() < 0.5,
-    };
-
+  const addNote = (noteObject) => {
+    noteFormRef.current.toggleVisibility();
     noteService.create(noteObject).then((returnedNote) => {
       setNotes(notes.concat(returnedNote));
-      setNewNote('');
     });
   };
 
-  const handleNoteChange = (event) => {
-    setNewNote(event.target.value);
-  };
+  const noteFormRef = useRef();
 
   const toggleImportanceOf = (id) => {
     const note = notes.find((n) => n.id === id);
@@ -101,6 +106,28 @@ const App = () => {
       });
   };
 
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    try {
+      const user = await loginService.login({
+        username,
+        password,
+      });
+
+      window.localStorage.setItem('loggedUser', JSON.stringify(user));
+      noteService.setToken(user.token);
+      setUser(user);
+      setUsername('');
+      setPassword('');
+    } catch (exception) {
+      setErrorMessage('Wrong credentials');
+      setTimeout(() => {
+        setErrorMessage(null);
+      }, 5000);
+    }
+  };
+
   const notesToShow = showAllNotes
     ? notes
     : notes.filter((note) => note.important === true);
@@ -109,6 +136,25 @@ const App = () => {
     <div>
       <div className="center">
         <Hello />
+
+        {user === null ? (
+          <Togglable buttonLabel="Login">
+            <LoginForm
+              username={username}
+              password={password}
+              handleUsernameChange={({ target }) => setUsername(target.value)}
+              handlePasswordChange={({ target }) => setPassword(target.value)}
+              handleSubmit={handleLogin}
+            />
+          </Togglable>
+        ) : (
+          <div>
+            <p>{user.username} logged-in</p>
+            <Togglable buttonLabel="New note">
+              <NoteForm createNote={addNote} />
+            </Togglable>
+          </div>
+        )}
       </div>
 
       <div className="right lightgreen">
@@ -150,10 +196,6 @@ const App = () => {
             />
           ))}
         </ul>
-        <form onSubmit={addNote}>
-          <input value={newNote} onChange={handleNoteChange} />
-          <button type="submit">save</button>
-        </form>
       </div>
 
       <div>
