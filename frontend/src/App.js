@@ -23,7 +23,6 @@ const App = () => {
   const [right, setRight] = useState(0);
   const [allClicks, setAll] = useState([]);
   const [notes, setNotes] = useState([]);
-  const [newNote, setNewNote] = useState('');
   const [showAllNotes, setShowAllNotes] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [username, setUsername] = useState('');
@@ -78,29 +77,10 @@ const App = () => {
     setAll([]);
   };
 
-  const noteForm = () => (
-    <form onSubmit={addNote}>
-      <input value={newNote} onChange={handleNoteChange} />
-      <button type="submit">save</button>
-    </form>
-  );
-
-  const addNote = (event) => {
-    event.preventDefault();
-    const noteObject = {
-      content: newNote,
-      date: new Date().toISOString(),
-      important: Math.random() < 0.5,
-    };
-
+  const addNote = (noteObject) => {
     noteService.create(noteObject).then((returnedNote) => {
       setNotes(notes.concat(returnedNote));
-      setNewNote('');
     });
-  };
-
-  const handleNoteChange = (event) => {
-    setNewNote(event.target.value);
   };
 
   const toggleImportanceOf = (id) => {
@@ -155,7 +135,7 @@ const App = () => {
         <Hello />
 
         {user === null ? (
-          <Togglable buttonLabel="login">
+          <Togglable buttonLabel="Login">
             <LoginForm
               username={username}
               password={password}
@@ -167,12 +147,8 @@ const App = () => {
         ) : (
           <div>
             <p>{user.username} logged-in</p>
-            <Togglable buttonLabel="new note">
-              <NoteForm
-                onSubmit={addNote}
-                value={newNote}
-                handleChange={handleNoteChange}
-              />
+            <Togglable buttonLabel="New note">
+              <NoteForm createNote={addNote} />
             </Togglable>
           </div>
         )}
@@ -217,10 +193,6 @@ const App = () => {
             />
           ))}
         </ul>
-        <form onSubmit={addNote}>
-          <input value={newNote} onChange={handleNoteChange} />
-          <button type="submit">save</button>
-        </form>
       </div>
 
       <div>
