@@ -78,27 +78,6 @@ const App = () => {
     setAll([]);
   };
 
-  const loginForm = () => {
-    const hideWhenVisible = { display: loginVisible ? 'none' : '' };
-    const showWhenVisible = { display: loginVisible ? '' : 'none' };
-
-    <div>
-      <div style={hideWhenVisible}>
-        <button onClick={() => setLoginVisible(true)}>log in</button>
-      </div>
-      <div style={showWhenVisible}>
-        <LoginForm
-          username={username}
-          password={password}
-          handleUsernameChange={({ target }) => setUsername(target.value)}
-          handlePasswordChange={({ target }) => setPassword(target.value)}
-          handleSubmit={handleLogin}
-        />
-        <button onClick={() => setLoginVisible(false)}>Cancel</button>
-      </div>
-    </div>;
-  };
-
   const noteForm = () => (
     <form onSubmit={addNote}>
       <input value={newNote} onChange={handleNoteChange} />
