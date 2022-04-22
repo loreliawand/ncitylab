@@ -6,13 +6,14 @@ import CountSeconds from './components/CountSeconds';
 import Footer from './components/Footer';
 import Hello from './components/Hello';
 import History from './components/History';
+import LoginForm from './components/LoginForm';
 import Note from './components/Note';
+import NoteForm from './components/NoteForm';
 import Notifications from './components/Notifications';
+import Togglable from './components/Togglable';
 import noteService from './services/notes';
 import axios from 'axios';
 import loginService from './services/login';
-import LoginForm from './components/LoginForm';
-import Togglable from './components/Togglable';
 
 const App = () => {
   const [seconds, countSeconds] = useState(0);
@@ -28,7 +29,6 @@ const App = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
-  const [loginVisible, setLoginVisible] = useState(false);
 
   useEffect(() => {
     axios.get('http://ncitylab.com/api/notes').then((res) => {
@@ -167,7 +167,13 @@ const App = () => {
         ) : (
           <div>
             <p>{user.username} logged-in</p>
-            {noteForm()}
+            <Togglable buttonLabel="new note">
+              <NoteForm
+                onSubmit={addNote}
+                value={newNote}
+                handleChange={handleNoteChange}
+              />
+            </Togglable>
           </div>
         )}
       </div>
