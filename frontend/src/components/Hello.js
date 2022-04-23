@@ -1,17 +1,19 @@
 import React from 'react';
 
-const Hello = ({ name, age }) => {
-  name = 'Lora';
-  age = 26;
-  const bornYear = () => new Date().getFullYear() - age;
+const Hello = () => {
   return (
     <div>
-      <h1>Greetings!</h1>
+      <h1>Greetings</h1>
       <p>
-        Hello world, my name is {name}, I am {age} years old.
+        Hello
+        <br />
+        You're on my private website named ncitylab.com
+        <br />
+        It is my home in the Internet
+        <br />
+        Here I provide programming experiments and practice at programming in
+        React.js and Node.js
       </p>
-      <p>So I was born in {bornYear()}.</p>
-      <p>This is my website :)</p>
     </div>
   );
 };

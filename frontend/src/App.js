@@ -137,6 +137,12 @@ const App = () => {
       <div className="center">
         <Hello />
 
+        <p>
+          In future you can <i>sign up</i> or <i>sign in</i> here
+          <br />
+          It's not work for now
+        </p>
+
         {user === null ? (
           <Togglable buttonLabel="Login">
             <LoginForm
