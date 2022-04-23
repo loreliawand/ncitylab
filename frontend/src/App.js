@@ -94,8 +94,8 @@ const App = () => {
     : notes.filter((note) => note.important === true);
 
   return (
-    <div>
-      <div className="center">
+    <div className="wrapper">
+      <div className="content">
         <Hello />
 
         <p>
@@ -122,9 +122,8 @@ const App = () => {
             </Togglable>
           </div>
         )}
-      </div>
 
-      <div className="lightgreen">
+        {/* <div>
         <h1>Notes</h1>
         <Notifications message={errorMessage} />
         <div>
@@ -143,9 +142,9 @@ const App = () => {
             />
           ))}
         </ul>
+      </div> */}
       </div>
-
-      <div className="right">
+      <div className="footer">
         <Footer />
       </div>
     </div>

@@ -1,22 +1,32 @@
-div {
-  padding: 10px;
+html {
+  height: 100%;
+  padding: auto;
+}
+
+body {
+  height: 100%;
+  margin: auto;
 }
 
 h1 {
   color: black;
 }
 
-.center {
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.content {
+  justify-items: center;
+  justify-content: center;
   text-align: center;
-  background-color: rgba(0, 128, 0, 0.2);
+  flex: 1 0 auto;
 }
-
-.right {
-  text-align: right;
-}
-
-.lightgreen {
-  background-color: rgba(172, 255, 47, 0.2);
+.footer {
+  margin: 5px;
+  text-align: end;
+  flex: 0 0 auto;
 }
 
 .error {
