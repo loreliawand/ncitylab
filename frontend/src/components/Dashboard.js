@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Hello = () => {
+const Dashboard = () => {
   return (
-    <div>
+    <div className="content">
       <h1>Greetings</h1>
       <p>
         Hello
@@ -14,8 +14,13 @@ const Hello = () => {
         Here I provide programming experiments and practice at programming in
         React.js and Node.js
       </p>
+      <p>
+        In future you can <i>sign up</i> or <i>sign in</i> here
+        <br />
+        It's not work for now
+      </p>
     </div>
   );
 };
 
-export default Hello;
+export default Dashboard;

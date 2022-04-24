@@ -1,6 +1,7 @@
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './index.css';
+import Dashboard from './components/Dashboard';
 import Footer from './components/Footer';
-import Hello from './components/Hello';
 // import {useState, useEffect, useRef} from 'react';
 // import LoginForm from './components/LoginForm';
 // import Note from './components/Note';
@@ -12,6 +13,7 @@ import Hello from './components/Hello';
 // import loginService from './services/login';
 
 const App = () => {
+  const padding = { padding: 5 };
   // const [seconds, countSeconds] = useState(0);
   // const [notes, setNotes] = useState([]);
   // const [showAllNotes, setShowAllNotes] = useState(true);
@@ -94,16 +96,20 @@ const App = () => {
 
   return (
     <div className="wrapper">
-      <div className="content">
-        <Hello />
+      <Router>
+        <div>
+          <Link style={padding} to="/">
+            Dashboard
+          </Link>
+        </div>
 
-        <p>
-          In future you can <i>sign up</i> or <i>sign in</i> here
-          <br />
-          It's not work for now
-        </p>
-
-        {/* {user === null ? (
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route />
+          <Route />
+        </Routes>
+        <div>
+          {/* {user === null ? (
           <Togglable buttonLabel="Login">
             <LoginForm
               username={username}
@@ -122,7 +128,7 @@ const App = () => {
           </div>
         )} */}
 
-        {/* <div>
+          {/* <div>
         <h1>Notes</h1>
         <Notifications message={errorMessage} />
         <div>
@@ -142,10 +148,11 @@ const App = () => {
           ))}
         </ul>
       </div> */}
-      </div>
-      <div className="footer">
-        <Footer />
-      </div>
+        </div>
+        <div className="footer">
+          <Footer />
+        </div>
+      </Router>
     </div>
   );
 };
