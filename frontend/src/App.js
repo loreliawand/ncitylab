@@ -105,8 +105,6 @@ const App = () => {
 
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route />
-          <Route />
         </Routes>
         <div>
           {/* {user === null ? (
