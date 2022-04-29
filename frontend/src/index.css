@@ -20,6 +20,15 @@ p {
   margin: 10px;
 }
 
+button {
+  margin: 0 5px;
+}
+
+.buttons {
+  flex-direction: row;
+  height: 10px;
+}
+
 .footer {
   height: 50px;
   flex-direction: row;
