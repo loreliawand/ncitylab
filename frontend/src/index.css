@@ -1,37 +1,65 @@
-html,
-body,
-div {
-  height: 100%;
-  width: 100%;
-}
-
 body {
   margin: 0;
-}
-
-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-p {
-  margin: 10px;
 }
 
 button {
   margin: 0 5px;
 }
 
-.buttons {
-  flex-direction: row;
-  height: 10px;
+.flex {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-.footer {
-  height: 50px;
+.blogHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
   flex-direction: row;
-  align-items: flex-end;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer p {
+  margin: 10px;
+  text-align: right;
+}
+
+.post {
+  flex-direction: column;
+  align-items: flex-start;
+  border-bottom: 3px;
+  border-color: black;
+  border-style: dashed;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  height: auto;
+}
+
+.postContent {
+  margin-left: 10px;
+}
+
+.postDate {
+  color: gray;
+  font-size: 10px;
+  margin-left: 10px;
+}
+
+.postHeader {
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+.flex-inside {
+  flex: 1 0 auto;
 }

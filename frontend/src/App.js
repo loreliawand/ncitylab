@@ -1,36 +1,18 @@
-import { useState } from 'react';
+import Footer from './components/Footer';
+import Header from './components/Header';
+import Post from './components/Post';
 
-const Footer = () => {
-  return (
-    <div className="footer">
-      <p>Created by L.W.</p>
-    </div>
-  );
-};
-
-const Future = () => {
-  const [title, setTitle] = useState('Future is coming');
-  return (
-    <div>
-      <h1>{title}</h1>
-      <div className="buttons">
-        <button onClick={() => setTitle('Future is coming')}>English</button>
-        <button onClick={() => setTitle('Nadchodzi przyszlość')}>Polski</button>
-        <button onClick={() => setTitle('Будущее близко')}>Русский</button>
-        <button onClick={() => setTitle('Майбутнє надходить')}>
-          Українська
-        </button>
-      </div>
-    </div>
-  );
-};
-
-const App = () => {
+const App = ({ posts }) => {
   console.log('All systems are working normally');
 
   return (
-    <div>
-      <Future />
+    <div className="flex">
+      <Header />
+      <div className="flex-inside">
+        {posts.map((post) => (
+          <Post key={post.id} post={post} />
+        ))}
+      </div>
       <Footer />
     </div>
   );
