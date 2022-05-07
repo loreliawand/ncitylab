@@ -6,13 +6,6 @@ button {
   margin: 0 5px;
 }
 
-.flex {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
 .blogHeader {
   display: flex;
   flex-direction: column;
@@ -28,9 +21,26 @@ button {
   justify-content: center;
 }
 
+.flex {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.flex-inside {
+  flex: 0 0 auto;
+}
+
 .footer p {
   margin: 10px;
+  margin-top: 50px;
   text-align: right;
+}
+
+.hidden {
+  display: none;
 }
 
 .post {
@@ -45,21 +55,17 @@ button {
   height: auto;
 }
 
-.postContent {
-  margin-left: 10px;
-}
-
 .postDate {
   color: gray;
   font-size: 10px;
   margin-left: 10px;
 }
 
-.postHeader {
-  margin-top: 0px;
+.postContent {
   margin-left: 10px;
 }
 
-.flex-inside {
-  flex: 1 0 auto;
+.postHeader {
+  margin-top: 0px;
+  margin-left: 10px;
 }
