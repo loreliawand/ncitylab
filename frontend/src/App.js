@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Post from './components/Post';
+
+import postService from './services/posts';
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -14,9 +16,8 @@ const App = () => {
 
   useEffect(() => {
     console.log('All systems are working normally');
-    axios.get('http://localhost:3001/posts').then((response) => {
-      console.log('Promise fullfield!');
-      setPosts(response.data);
+    postService.getAll().then((initialPosts) => {
+      setPosts(initialPosts);
     });
   }, []);
   console.log('Rendered', posts.length, 'posts in 4 different languages');
@@ -24,16 +25,22 @@ const App = () => {
   const addPost = (event) => {
     event.preventDefault();
     const postObject = {
-      date: new Date().toISOString(),
-      header: newPostHeader,
-      content: newPostContent,
+      postDate: new Date().toISOString(),
+      postHeader: newPostHeader,
+      postContent: newPostContent,
       id: posts.length + 1,
     };
 
-    setPosts(posts.concat(postObject));
-    setNewPostHeader('');
-    setNewPostContent('');
+    postService.create(postObject).then((returnedPost) => {
+      setPosts(posts.concat(returnedPost));
+      setNewPostHeader('');
+      setNewPostContent('');
+    });
   };
+
+  const deletePost = () => {
+    postService.clear();
+  }; // need to implement
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
@@ -46,7 +53,7 @@ const App = () => {
 
   let resultOfSearch = posts.filter((post) =>
     post.postContent.includes(search)
-  );
+  ); // need to implement
 
   const handlePostHeaderChange = (event) => {
     setNewPostHeader(event.target.value);
@@ -60,7 +67,7 @@ const App = () => {
     <div className="flex">
       <Header />
       <div>
-        <h5 style={{ margin: '5px' }}>Searching</h5>
+        <h5 style={{ margin: '5px' }}>Searching (not working for now)</h5>
         <form
           onSubmit={makeSearch}
           style={{ marginLeft: '5px', marginBottom: '5px' }}
@@ -69,9 +76,12 @@ const App = () => {
         </form>
       </div>
       <div className="flex-inside">
-        {resultOfSearch.map((post) => (
+        {posts.map((post) => (
           <Post key={post.id} post={post} />
         ))}
+        <button onClick={() => deletePost()}>
+          Delete post (not working for now)
+        </button>
       </div>
       <div style={{ marginTop: '20px' }}>
         <button onClick={() => setShowForm(!showForm)}>Add new post</button>
