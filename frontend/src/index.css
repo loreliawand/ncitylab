@@ -53,6 +53,7 @@ button {
   border-left: 0px;
   border-right: 0px;
   height: auto;
+  padding-bottom: 5px;
 }
 
 .postDate {

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 import Footer from './components/Footer';
@@ -35,12 +34,9 @@ const App = () => {
       setPosts(posts.concat(returnedPost));
       setNewPostHeader('');
       setNewPostContent('');
+      window.location.reload();
     });
   };
-
-  const deletePost = () => {
-    postService.clear();
-  }; // need to implement
 
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
@@ -53,7 +49,7 @@ const App = () => {
 
   let resultOfSearch = posts.filter((post) =>
     post.postContent.includes(search)
-  ); // need to implement
+  );
 
   const handlePostHeaderChange = (event) => {
     setNewPostHeader(event.target.value);
@@ -67,7 +63,7 @@ const App = () => {
     <div className="flex">
       <Header />
       <div>
-        <h5 style={{ margin: '5px' }}>Searching (not working for now)</h5>
+        <h5 style={{ margin: '5px' }}>Searching</h5>
         <form
           onSubmit={makeSearch}
           style={{ marginLeft: '5px', marginBottom: '5px' }}
@@ -76,12 +72,9 @@ const App = () => {
         </form>
       </div>
       <div className="flex-inside">
-        {posts.map((post) => (
+        {resultOfSearch.map((post) => (
           <Post key={post.id} post={post} />
         ))}
-        <button onClick={() => deletePost()}>
-          Delete post (not working for now)
-        </button>
       </div>
       <div style={{ marginTop: '20px' }}>
         <button onClick={() => setShowForm(!showForm)}>Add new post</button>
