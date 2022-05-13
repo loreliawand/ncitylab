@@ -62,6 +62,8 @@ const App = () => {
   return (
     <div className="flex">
       <Header />
+
+      {/* searching div */}
       <div>
         <h5 style={{ margin: '5px' }}>Searching</h5>
         <form
@@ -71,15 +73,22 @@ const App = () => {
           <input value={search} onChange={handleSearchChange} />
         </form>
       </div>
+
+      {/* posts div */}
       <div className="flex-inside">
         {resultOfSearch.map((post) => (
           <Post key={post.id} post={post} />
         ))}
       </div>
+
+      {/* new post form div */}
       <div style={{ marginTop: '20px' }}>
         <button onClick={() => setShowForm(!showForm)}>Add new post</button>
+
+        {/* form */}
         <div className={showForm ? null : 'hidden'}>
           <form onSubmit={addPost} style={{ marginTop: '15px' }}>
+            {/* header */}
             <label>
               Header:
               <br />
@@ -90,6 +99,8 @@ const App = () => {
               />
             </label>
             <br />
+
+            {/* content */}
             <label>
               Content:
               <br />
@@ -99,10 +110,13 @@ const App = () => {
                 onChange={handlePostContentChange}
               />
             </label>
+
+            {/* sending button */}
             <button type="submit">Send post</button>
           </form>
         </div>
       </div>
+
       <Footer />
     </div>
   );
