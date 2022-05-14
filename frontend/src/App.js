@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
+import ErrorNotification from './components/ErrorNotification';
 import Post from './components/Post';
+import SuccessNotification from './components/SuccessNotification';
 
 import postService from './services/posts';
 
@@ -12,6 +14,8 @@ const App = () => {
   const [newPostContent, setNewPostContent] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [search, setSearch] = useState('');
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
     console.log('All systems are working normally');
@@ -30,12 +34,24 @@ const App = () => {
       id: posts.length + 1,
     };
 
-    postService.create(postObject).then((returnedPost) => {
-      setPosts(posts.concat(returnedPost));
-      setNewPostHeader('');
-      setNewPostContent('');
-      window.location.reload();
-    });
+    postService
+      .create(postObject)
+      .then((returnedPost) => {
+        setPosts(posts.concat(returnedPost));
+        setNewPostHeader('');
+        setNewPostContent('');
+        setSuccessMessage(`Post was added successfully!`);
+        setTimeout(() => {
+          setSuccessMessage(null);
+          window.location.reload();
+        }, 5000);
+      })
+      .catch((error) => {
+        setErrorMessage('Some server error!');
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+      });
   };
 
   const handleSearchChange = (event) => {
@@ -62,6 +78,9 @@ const App = () => {
   return (
     <div className="flex">
       <Header />
+
+      <ErrorNotification message={errorMessage} />
+      <SuccessNotification message={successMessage} />
 
       {/* searching div */}
       <div>
