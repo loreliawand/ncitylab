@@ -1,10 +1,8 @@
 import { React, useState } from 'react';
-import axios from 'axios';
+import postService from '../services/posts';
 
 import SuccessNotification from './SuccessNotification';
 import ErrorNotification from './ErrorNotification';
-
-const baseUrl = 'http://localhost:3001/posts';
 
 const Post = ({ post }) => {
   const [successMessage, setSuccessMessage] = useState(null);
@@ -19,8 +17,8 @@ const Post = ({ post }) => {
       <p className="postContent">{post.postContent}</p>
       <button
         onClick={() =>
-          axios
-            .delete(`${baseUrl}/${post.id}`)
+          postService
+            .deletePost(post.id)
             .then(
               setSuccessMessage(`Post was deleted successfully!`),
               setTimeout(() => {
