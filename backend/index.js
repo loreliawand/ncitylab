@@ -40,6 +40,25 @@ app.get('/api/posts', (request, response) => {
   response.json(posts);
 });
 
+app.get('/api/posts/:id', (request, response) => {
+  const id = Number(request.params.id);
+  console.log(id);
+  const post = posts.find((post) => post.id === id);
+
+  if (post) {
+    response.json(post);
+  } else {
+    response.status(404).end();
+  }
+});
+
+app.delete('/api/posts/:id', (request, response) => {
+  const id = Number(request.params.id);
+  posts = posts.filter((post) => post.id !== id);
+
+  response.status(204).end();
+});
+
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
