@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json());
+
 let posts = [
   {
     id: 1,
@@ -32,6 +34,11 @@ let posts = [
   },
 ];
 
+const generateId = () => {
+  const maxId = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) : 0;
+  return maxId + 1;
+};
+
 app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>');
 });
@@ -39,6 +46,10 @@ app.get('/', (request, response) => {
 app.get('/api/posts', (request, response) => {
   response.json(posts);
 });
+
+// app.get('/info', (request, response) => {
+//   response.send(200).end(`Blog has ${posts.length} posts for now`, new Date());
+// });
 
 app.get('/api/posts/:id', (request, response) => {
   const id = Number(request.params.id);
@@ -50,6 +61,33 @@ app.get('/api/posts/:id', (request, response) => {
   } else {
     response.status(404).end();
   }
+});
+
+app.post('/api/posts', (request, response) => {
+  const body = request.body;
+
+  if (!body.postHeader) {
+    return response
+      .status(400)
+      .json({ error: 'Header missing! Please write the header!' });
+  }
+
+  if (!body.postContent) {
+    return response
+      .status(400)
+      .json({ error: 'Content missing! Please write the content!' });
+  }
+
+  const post = {
+    id: generateId(),
+    postHeader: body.postHeader,
+    postContent: body.postContent,
+    postDate: new Date(),
+  };
+
+  posts = posts.concat(post);
+
+  response.json(post);
 });
 
 app.delete('/api/posts/:id', (request, response) => {
