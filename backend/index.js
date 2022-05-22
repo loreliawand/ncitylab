@@ -1,7 +1,21 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 
+morgan.token('id', function (req, res) {
+  return req.params.id;
+});
+
+morgan.token('postHeader', function (req, res) {
+  return req.body.postHeader;
+});
+
 app.use(express.json());
+app.use(
+  morgan(
+    ':method :url :status :res[content-length] - :response-time ms :id :postHeader'
+  )
+);
 
 let posts = [
   {
@@ -35,7 +49,7 @@ let posts = [
 ];
 
 const generateId = () => {
-  const maxId = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) : 0;
+  const maxId = posts.length > 0 ? Math.max(...posts.map((n) => n.id)) : 0;
   return maxId + 1;
 };
 
@@ -47,9 +61,11 @@ app.get('/api/posts', (request, response) => {
   response.json(posts);
 });
 
-// app.get('/info', (request, response) => {
-//   response.send(200).end(`Blog has ${posts.length} posts for now`, new Date());
-// });
+app.get('/info', (request, response) => {
+  const date = new Date();
+  response.send(`Blog has ${posts.length} posts for now
+  ${date}`);
+});
 
 app.get('/api/posts/:id', (request, response) => {
   const id = Number(request.params.id);
@@ -96,6 +112,12 @@ app.delete('/api/posts/:id', (request, response) => {
 
   response.status(204).end();
 });
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'Unknown endpoint' });
+};
+
+app.use(unknownEndpoint);
 
 const PORT = 3001;
 app.listen(PORT, () => {
