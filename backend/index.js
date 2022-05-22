@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const cors = require('cors');
 const app = express();
 
 morgan.token('id', function (req, res) {
@@ -16,6 +17,7 @@ app.use(
     ':method :url :status :res[content-length] - :response-time ms :id :postHeader'
   )
 );
+app.use(cors());
 
 let posts = [
   {
