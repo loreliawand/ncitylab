@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -9,6 +10,7 @@ import SuccessNotification from './components/SuccessNotification';
 import postService from './services/posts';
 
 const App = () => {
+  const { i18n } = useTranslation();
   const [posts, setPosts] = useState([]);
   const [newPostHeader, setNewPostHeader] = useState('');
   const [newPostContent, setNewPostContent] = useState('');
@@ -16,6 +18,14 @@ const App = () => {
   const [search, setSearch] = useState('');
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const [language, setLanguage] = useState('en');
+
+  const handleOnclick = (e) => {
+    e.preventDefault();
+    setLanguage(e.target.value);
+    i18n.changeLanguage(e.target.value);
+  };
 
   useEffect(() => {
     console.log('All systems are working normally');
@@ -77,7 +87,22 @@ const App = () => {
 
   return (
     <div className="flex">
-      <Header />
+      <Header lang={language} />
+
+      <div className="buttons">
+        <button value="en" onClick={handleOnclick}>
+          English
+        </button>
+        <button value="pl" onClick={handleOnclick}>
+          Polski
+        </button>
+        <button value="ua" onClick={handleOnclick}>
+          Українська
+        </button>
+        <button value="ru" onClick={handleOnclick}>
+          Русский
+        </button>
+      </div>
 
       <ErrorNotification message={errorMessage} />
       <SuccessNotification message={successMessage} />
