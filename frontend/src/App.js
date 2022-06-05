@@ -18,14 +18,7 @@ const App = () => {
   const [search, setSearch] = useState('');
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
-
   const [language, setLanguage] = useState('en');
-
-  const handleOnclick = (e) => {
-    e.preventDefault();
-    setLanguage(e.target.value);
-    i18n.changeLanguage(e.target.value);
-  };
 
   useEffect(() => {
     console.log('All systems are working normally');
@@ -85,23 +78,30 @@ const App = () => {
     setNewPostContent(event.target.value);
   };
 
+  const handleOnclick = (e) => {
+    e.preventDefault();
+    setLanguage(e.target.value);
+    i18n.changeLanguage(e.target.value);
+  };
+
   return (
     <div className="flex">
-      <Header lang={language} />
-
-      <div className="buttons">
-        <button value="en" onClick={handleOnclick}>
-          English
-        </button>
-        <button value="pl" onClick={handleOnclick}>
-          Polski
-        </button>
-        <button value="ua" onClick={handleOnclick}>
-          Українська
-        </button>
-        <button value="ru" onClick={handleOnclick}>
-          Русский
-        </button>
+      <div>
+        <Header lang={language} />
+        <div className="buttons">
+          <button value="en" onClick={handleOnclick}>
+            English
+          </button>
+          <button value="pl" onClick={handleOnclick}>
+            Polski
+          </button>
+          <button value="ua" onClick={handleOnclick}>
+            Українська
+          </button>
+          <button value="ru" onClick={handleOnclick}>
+            Русский
+          </button>
+        </div>
       </div>
 
       <ErrorNotification message={errorMessage} />
