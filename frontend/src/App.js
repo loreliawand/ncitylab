@@ -1,88 +1,86 @@
-import { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import Footer from './components/Footer';
-import Header from './components/Header';
-import ErrorNotification from './components/ErrorNotification';
-import Post from './components/Post';
-import SuccessNotification from './components/SuccessNotification';
+import Footer from './components/Footer'
+import Header from './components/Header'
+import ErrorNotification from './components/ErrorNotification'
+import Post from './components/Post'
+import SuccessNotification from './components/SuccessNotification'
 
-import postService from './services/posts';
+import postService from './services/posts'
 
 const App = () => {
-  const { i18n } = useTranslation();
-  const [posts, setPosts] = useState([]);
-  const [newPostHeader, setNewPostHeader] = useState('');
-  const [newPostContent, setNewPostContent] = useState('');
-  const [showForm, setShowForm] = useState(false);
-  const [search, setSearch] = useState('');
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [language, setLanguage] = useState('en');
+  const { i18n } = useTranslation()
+  const [posts, setPosts] = useState([])
+  const [newPostHeader, setNewPostHeader] = useState('')
+  const [newPostContent, setNewPostContent] = useState('')
+  const [showForm, setShowForm] = useState(false)
+  const [search, setSearch] = useState('')
+  const [successMessage, setSuccessMessage] = useState(null)
+  const [errorMessage, setErrorMessage] = useState(null)
+  const [language, setLanguage] = useState('en')
 
   useEffect(() => {
-    console.log('All systems are working normally');
+    console.log('All systems are working normally')
     postService.getAll().then((initialPosts) => {
-      setPosts(initialPosts);
-    });
-  }, []);
-  console.log('Rendered', posts.length, 'posts in 4 different languages');
+      setPosts(initialPosts)
+    })
+  }, [])
+  console.log('Rendered', posts.length, 'posts in 4 different languages')
 
   const addPost = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     const postObject = {
       postDate: new Date().toISOString(),
       postHeader: newPostHeader,
       postContent: newPostContent,
       id: posts.length + 1,
-    };
+    }
 
     postService
       .create(postObject)
       .then((returnedPost) => {
-        setPosts(posts.concat(returnedPost));
-        setNewPostHeader('');
-        setNewPostContent('');
-        setSuccessMessage(`Post was added successfully!`);
+        setPosts(posts.concat(returnedPost))
+        setNewPostHeader('')
+        setNewPostContent('')
+        setSuccessMessage(`Post was added successfully!`)
         setTimeout(() => {
-          setSuccessMessage(null);
-          window.location.reload();
-        }, 5000);
+          setSuccessMessage(null)
+          window.location.reload()
+        }, 5000)
       })
       .catch((error) => {
-        setErrorMessage('Some server error!');
+        setErrorMessage(`${error.response.data.error}`)
         setTimeout(() => {
-          setErrorMessage(null);
-        }, 5000);
-      });
-  };
+          setErrorMessage(null)
+        }, 5000)
+      })
+  }
 
   const handleSearchChange = (event) => {
-    setSearch(event.target.value);
-  };
+    setSearch(event.target.value)
+  }
 
   const makeSearch = (event) => {
-    event.preventDefault();
-    console.log(posts.filter((post) => post.postContent.includes(search)));
-  };
+    event.preventDefault()
+    console.log(posts.filter((post) => post.postContent.includes(search)))
+  }
 
-  let resultOfSearch = posts.filter((post) =>
-    post.postContent.includes(search)
-  );
+  let resultOfSearch = posts.filter((post) => post.postContent.includes(search))
 
   const handlePostHeaderChange = (event) => {
-    setNewPostHeader(event.target.value);
-  };
+    setNewPostHeader(event.target.value)
+  }
 
   const handlePostContentChange = (event) => {
-    setNewPostContent(event.target.value);
-  };
+    setNewPostContent(event.target.value)
+  }
 
   const handleOnclick = (e) => {
-    e.preventDefault();
-    setLanguage(e.target.value);
-    i18n.changeLanguage(e.target.value);
-  };
+    e.preventDefault()
+    setLanguage(e.target.value)
+    i18n.changeLanguage(e.target.value)
+  }
 
   return (
     <div className="flex">
@@ -163,7 +161,7 @@ const App = () => {
 
       <Footer />
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

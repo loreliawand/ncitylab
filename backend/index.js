@@ -7,9 +7,9 @@ const app = express()
 
 const Post = require('./models/post')
 
-morgan.token('id', function (req, res) {
-  return req.params.id
-})
+// morgan.token('id', function (req, res) {
+//   return req.params.id
+// })
 
 morgan.token('postHeader', function (req, res) {
   return req.body.postHeader
@@ -18,7 +18,7 @@ morgan.token('postHeader', function (req, res) {
 app.use(express.json())
 app.use(
   morgan(
-    ':method :url :status :res[content-length] - :response-time ms :id :postHeader'
+    ':method :url :status :res[content-length] - :response-time ms :postHeader'
   )
 )
 app.use(cors())
@@ -45,7 +45,7 @@ app.get('/info', (request, response) => {
 })
 
 app.get('/api/posts/:id', (request, response, next) => {
-  Post.findById(request.params.id)
+  Post.findOne({ id: request.params.id })
     .then((post) => {
       if (post) {
         response.json(post)
@@ -58,7 +58,7 @@ app.get('/api/posts/:id', (request, response, next) => {
     })
 })
 
-app.post('/api/posts', (request, response) => {
+app.post('/api/posts', (request, response, next) => {
   const body = request.body
 
   if (body.postHeader === undefined) {
@@ -79,14 +79,38 @@ app.post('/api/posts', (request, response) => {
     postDate: new Date(),
   })
 
-  post.save().then((savedPost) => {
-    response.json(savedPost)
+  post
+    .save()
+    .then((savedPost) => {
+      response.json(savedPost)
+    })
+    .catch((error) => next(error))
+})
+
+// not working for now
+app.put('api/posts/:id', (request, response, next) => {
+  const { postHeader, postContent } = request.body
+
+  const post = {
+    postHeader: body.postHeader,
+    postContent: body.postContent,
+  }
+
+  Post.findOneAndUpdate({ id: request.params.id }, post, {
+    new: true,
+    runValidators: true,
+    context: 'query',
   })
+    .then((updatedPost) => {
+      response.json(updatedPost)
+    })
+    .catch((error) => next(error))
 })
 
 app.delete('/api/posts/:id', (request, response, next) => {
   Post.deleteOne({ id: request.params.id })
     .then((result) => {
+      console.log(request.params.id)
       response.status(204).end()
     })
     .catch((error) => next(error))
@@ -103,6 +127,8 @@ const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'Malformatted ID' })
+  } else if (error.name === 'ValidationError') {
+    return response.status(400).json({ error: error.message })
   }
   next(error)
 }
