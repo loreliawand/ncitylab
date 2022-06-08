@@ -26,7 +26,6 @@ const App = () => {
       setPosts(initialPosts)
     })
   }, [])
-  console.log('Rendered', posts.length, 'posts in 4 different languages')
 
   const addPost = (event) => {
     event.preventDefault()

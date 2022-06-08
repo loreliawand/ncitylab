@@ -7,20 +7,12 @@ const app = express()
 
 const Post = require('./models/post')
 
-// morgan.token('id', function (req, res) {
-//   return req.params.id
-// })
-
 morgan.token('postHeader', function (req, res) {
   return req.body.postHeader
 })
 
 app.use(express.json())
-app.use(
-  morgan(
-    ':method :url :status :res[content-length] - :response-time ms :postHeader'
-  )
-)
+app.use(morgan(':method :url :status - :response-time ms :postHeader'))
 app.use(cors())
 app.use(express.static('build'))
 
@@ -110,7 +102,6 @@ app.put('api/posts/:id', (request, response, next) => {
 app.delete('/api/posts/:id', (request, response, next) => {
   Post.deleteOne({ id: request.params.id })
     .then((result) => {
-      console.log(request.params.id)
       response.status(204).end()
     })
     .catch((error) => next(error))
