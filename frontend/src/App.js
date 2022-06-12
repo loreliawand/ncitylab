@@ -33,7 +33,6 @@ const App = () => {
       postDate: new Date().toISOString(),
       postHeader: newPostHeader,
       postContent: newPostContent,
-      id: posts.length + 1,
     }
 
     postService

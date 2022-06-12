@@ -7,45 +7,43 @@ import ErrorNotification from './ErrorNotification'
 const Post = ({ post }) => {
   const [successMessage, setSuccessMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
-  // const [showForm, setShowForm] = useState(false)
-  // const [newPostHeader, setNewPostHeader] = useState('')
-  // const [newPostContent, setNewPostContent] = useState('')
-  // const [posts, setPosts] = useState([])
+  const [showForm, setShowForm] = useState(false)
+  const [newPostHeader, setNewPostHeader] = useState('')
+  const [newPostContent, setNewPostContent] = useState('')
 
-  // const handlePostHeaderChange = (event) => {
-  //   setNewPostHeader(event.target.value)
-  // }
+  const handlePostHeaderChange = (event) => {
+    setNewPostHeader(event.target.value)
+  }
 
-  // const handlePostContentChange = (event) => {
-  //   setNewPostContent(event.target.value)
-  // }
+  const handlePostContentChange = (event) => {
+    setNewPostContent(event.target.value)
+  }
 
-  // const editPost = (event) => {
-  //   event.preventDefault()
-  //   const postObject = {
-  //     postHeader: newPostHeader,
-  //     postContent: newPostContent,
-  //   }
+  const editPost = (event) => {
+    event.preventDefault()
+    const changedObject = {
+      postHeader: newPostHeader,
+      postContent: newPostContent,
+    }
 
-  //   postService
-  //     .update(postObject)
-  //     .then((returnedPost) => {
-  //       setPosts(posts.concat(returnedPost))
-  //       setNewPostHeader('')
-  //       setNewPostContent('')
-  //       setSuccessMessage(`Post was edited successfully!`)
-  //       setTimeout(() => {
-  //         setSuccessMessage(null)
-  //         window.location.reload()
-  //       }, 5000)
-  //     })
-  //     .catch((error) => {
-  //       setErrorMessage(`${error.response.data.error}`)
-  //       setTimeout(() => {
-  //         setErrorMessage(null)
-  //       }, 5000)
-  //     })
-  // }
+    postService
+      .update(post.id, changedObject)
+      .then((returnedPost) => {
+        setNewPostHeader('')
+        setNewPostContent('')
+        setSuccessMessage(`Post was edited successfully!`)
+        setTimeout(() => {
+          setSuccessMessage(null)
+          window.location.reload()
+        }, 5000)
+      })
+      .catch((error) => {
+        setErrorMessage(`${error.response.data.error}`)
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 5000)
+      })
+  }
 
   return (
     <div className="post">
@@ -55,12 +53,12 @@ const Post = ({ post }) => {
       <h3 className="postHeader">{post.postHeader}</h3>
       <p className="postContent">{post.postContent}</p>
 
-      {/*<button onClick={() => setShowForm(!showForm)}>Edit</button>
+      <button onClick={() => setShowForm(!showForm)}>Edit</button>
 
-       <div className={showForm ? null : 'hidden'}>
+      <div className={showForm ? null : 'hidden'}>
         <form onSubmit={editPost} style={{ marginTop: '15px' }}>
           {/* header */}
-      {/* <label>
+          <label>
             Header:
             <br />
             <input
@@ -72,7 +70,7 @@ const Post = ({ post }) => {
           <br />
 
           {/* content */}
-      {/* <label>
+          <label>
             Content:
             <br />
             <textarea
@@ -83,9 +81,9 @@ const Post = ({ post }) => {
           </label>
 
           {/* sending button */}
-      {/* <button type="submit">Send post</button>
+          <button type="submit">Send post</button>
         </form>
-      </div> */}
+      </div>
 
       <button
         onClick={() =>
